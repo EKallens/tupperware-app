@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Logo from '@/assets/images/logo/recipe-logo-oficial.svg'
 import GoogleLogo from '@/assets/images/logo/google.svg'
-import Icons from '@/components/icons/Icons'
 
 export const LoginPage = () => {
     return (
@@ -39,12 +38,12 @@ export const LoginPage = () => {
                     </Link>
                 </div>
 
-                <div className="relative py-4">
+                <div className="relative py-4 mb-2">
                     <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-b border-gray-300"></div>
                     </div>
                     <div className="relative flex justify-center">
-                        <span className="bg-white px-3 text-sm text-gray-500 uppercase">O inicia sesión con</span>
+                        <span className="bg-white px-3 text-sm text-gray-500">O inicia sesión con</span>
                     </div>
                 </div>
                 <Button
