@@ -1,10 +1,10 @@
-import { RecipeDetails } from '@/components/recipe-details/RecipeDetails'
 import { AuthLayout } from '@/layouts/auth/AuthLayout'
 import { DashboardLayout } from '@/layouts/dashboard/DashboardLayout'
 import { LoginPage } from '@/pages/auth/LoginPage'
 import { RegisterPage } from '@/pages/auth/RegisterPage'
 import { HomePage } from '@/pages/dashboard/HomePage'
 import { ProfilePage } from '@/pages/dashboard/ProfilePage'
+import { RecipeDetailsPage } from '@/pages/dashboard/RecipeDetailsPage'
 import { RecipesPage } from '@/pages/dashboard/RecipesPage'
 import { SaveRecipesPage } from '@/pages/dashboard/SaveRecipesPage'
 import { SettingsPage } from '@/pages/dashboard/SettingsPage'
@@ -27,13 +27,11 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: 'recipes',
-                        element: <RecipesPage />,
-                        children: [
-                            {
-                                path: ':id',
-                                element: <RecipeDetails />
-                            }
-                        ]
+                        element: <RecipesPage />
+                    },
+                    {
+                        path: 'recipes/:id',
+                        element: <RecipeDetailsPage />
                     },
                     {
                         path: 'tags',
