@@ -1,11 +1,11 @@
+import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Link } from 'react-router-dom'
 import Logo from '@/assets/images/logo/recipe-logo-oficial.svg'
 
-export const RegisterPage = () => {
+export const RegisterPage = (): JSX.Element => {
     return (
         <Card className="bg-white mx-auto max-w-sm">
             <CardHeader className="space-y-1 flex flex-col text-center items-center">

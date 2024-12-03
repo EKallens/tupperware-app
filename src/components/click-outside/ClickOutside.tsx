@@ -7,7 +7,7 @@ interface Props {
     className?: string
 }
 
-const ClickOutside: React.FC<Props> = ({ children, exceptionRef, onClick, className }) => {
+export const ClickOutside: React.FC<Props> = ({ children, exceptionRef, onClick, className }) => {
     const wrapperRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -38,5 +38,3 @@ const ClickOutside: React.FC<Props> = ({ children, exceptionRef, onClick, classN
         </div>
     )
 }
-
-export default ClickOutside

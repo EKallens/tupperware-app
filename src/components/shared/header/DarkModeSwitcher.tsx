@@ -1,6 +1,6 @@
-import useColorMode from '@/hooks/useColorMode'
+import { useColorMode } from '@/hooks/use-color-mode'
 
-const DarkModeSwitcher: React.FC = () => {
+export const DarkModeSwitcher = (): JSX.Element => {
     const [colorMode, setColorMode] = useColorMode()
 
     return (
@@ -49,5 +49,3 @@ const DarkModeSwitcher: React.FC = () => {
         </li>
     )
 }
-
-export default DarkModeSwitcher

@@ -1,3 +1,4 @@
+import { createBrowserRouter } from 'react-router-dom'
 import { AuthLayout } from '@/layouts/auth/AuthLayout'
 import { DashboardLayout } from '@/layouts/dashboard/DashboardLayout'
 import { LoginPage } from '@/pages/auth/LoginPage'
@@ -10,7 +11,6 @@ import { SaveRecipesPage } from '@/pages/dashboard/SaveRecipesPage'
 import { SettingsPage } from '@/pages/dashboard/SettingsPage'
 import { TagsPage } from '@/pages/dashboard/TagsPage'
 import { Root } from '@/Root'
-import { createBrowserRouter } from 'react-router-dom'
 
 export const router = createBrowserRouter([
     {

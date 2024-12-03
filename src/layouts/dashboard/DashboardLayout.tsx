@@ -1,9 +1,9 @@
-import { Header } from '@/components/shared/header/Header'
-import { Sidebar } from '@/components/shared/sidebar/Sidebar'
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { Header } from '@/components/shared/header/Header'
+import { Sidebar } from '@/components/shared/sidebar/Sidebar'
 
-export const DashboardLayout = () => {
+export const DashboardLayout = (): JSX.Element => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
 
     return (

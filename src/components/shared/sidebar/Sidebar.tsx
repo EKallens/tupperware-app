@@ -4,16 +4,16 @@ import { IoClose, IoHome } from 'react-icons/io5'
 import { FaTags } from 'react-icons/fa6'
 import { ImSpoonKnife } from 'react-icons/im'
 import { IoMdSettings } from 'react-icons/io'
-import { SidebarItem } from './SidebarItem'
 import Logo from '@/assets/images/logo/recipe-logo-oficial.png'
 import { appName } from '@/utils/constants'
+import { SidebarItem } from './SidebarItem'
 
-interface SidebarProps {
+interface Props {
     sidebarOpen: boolean
     setSidebarOpen: (arg: boolean) => void
 }
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+export const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
     const location = useLocation()
     const { pathname } = location
 
@@ -118,5 +118,3 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </aside>
     )
 }
-
-export { Sidebar }

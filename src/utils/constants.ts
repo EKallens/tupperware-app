@@ -1,6 +1,8 @@
+import { IRecipe } from '@/interfaces/recipes/recipes'
+
 export const appName = 'Recipes App'
 
-export const recipesMock = [
+export const recipesMock: IRecipe[] = [
     {
         id: '67452b759f39700a7c7cdf57',
         title: 'Pizza',

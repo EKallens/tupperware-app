@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import Logo from '@/assets/images/logo/recipe-logo-oficial.svg'
 import GoogleLogo from '@/assets/images/logo/google.svg'
 
-export const LoginPage = () => {
+export const LoginPage = (): JSX.Element => {
     return (
         <Card className="bg-white mx-auto max-w-sm">
             <CardHeader className="space-y-1 flex flex-col text-center items-center">

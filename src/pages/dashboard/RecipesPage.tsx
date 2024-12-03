@@ -1,11 +1,9 @@
-import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
+import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 
-export const RecipesPage = () => {
+export const RecipesPage = (): JSX.Element => {
     return (
-        <>
-            <div className="mx-auto max-w-170">
-                <Breadcrumb pageName="Recetas" />
-            </div>
-        </>
+        <div className="mx-auto max-w-170">
+            <Breadcrumb pageName="Recetas" />
+        </div>
     )
 }

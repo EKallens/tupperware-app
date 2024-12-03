@@ -1,6 +1,6 @@
-import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
+import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 
-export const ProfilePage = () => {
+export const ProfilePage = (): JSX.Element => {
     return (
         <>
             <div className="mx-auto max-w-170">

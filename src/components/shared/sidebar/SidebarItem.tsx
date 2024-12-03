@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-type SidebarItemProps = {
+interface Props {
     pathname: string
     navigateTo: string
     icon: JSX.Element
@@ -8,7 +8,7 @@ type SidebarItemProps = {
     isActive: boolean
 }
 
-const SidebarItem = (props: SidebarItemProps) => {
+export const SidebarItem = (props: Props): JSX.Element => {
     return (
         <li>
             <NavLink
@@ -23,5 +23,3 @@ const SidebarItem = (props: SidebarItemProps) => {
         </li>
     )
 }
-
-export { SidebarItem }

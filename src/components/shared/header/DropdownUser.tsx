@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import ClickOutside from '@/components/click-outside/ClickOutside'
 import { FaRegHeart } from 'react-icons/fa'
+import { ClickOutside } from '@/components/click-outside/ClickOutside'
 import UserOne from '@/assets/images/user/account-avatar-profile-user.svg'
 
-const DropdownUser = () => {
+export const DropdownUser = (): JSX.Element => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
 
     return (
@@ -134,5 +134,3 @@ const DropdownUser = () => {
         </ClickOutside>
     )
 }
-
-export default DropdownUser

@@ -1,7 +1,7 @@
-import Recipe from '@/components/recipe/Recipe'
+import { Recipe } from '@/components/recipe/Recipe'
 import { recipesMock } from '@/utils/constants'
 
-export const HomePage = () => {
+export const HomePage = (): JSX.Element => {
     return (
         <div className="m-4">
             <div className="flex flex-wrap gap-10 items-center justify-center">

@@ -1,30 +1,13 @@
+import { Link } from 'react-router-dom'
+import { IoTimerOutline } from 'react-icons/io5'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { cn, transformDifficulty } from '@/utils/utils'
-import { IoTimerOutline } from 'react-icons/io5'
-import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import recipeImg from '@/assets/images/recipes/pizza.jpg'
-import { Link } from 'react-router-dom'
+import { IRecipe } from '@/interfaces/recipes/recipes'
 
-type RecipeType = {
-    id: string
-    title: string
-    notes: string
-    servings: number
-    tags: string[]
-    ingredients: string
-    cookTime: number
-    preparation: string
-    difficulty: string
-    createdBy: string
-    createdAt: string
-    updatedAt: string
-    isFavorite?: boolean
-    img?: string
-    description?: string
-}
-
-const Recipe = (recipe: RecipeType): JSX.Element => {
+export const Recipe = (recipe: IRecipe): JSX.Element => {
     return (
         <>
             <Card className="bg-white shadow-lg w-[350px]">
@@ -88,5 +71,3 @@ const Recipe = (recipe: RecipeType): JSX.Element => {
         </>
     )
 }
-
-export default Recipe
