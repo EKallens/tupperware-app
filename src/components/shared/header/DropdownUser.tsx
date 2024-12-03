@@ -5,11 +5,11 @@ import { FaRegHeart } from 'react-icons/fa'
 import UserOne from '@/assets/images/user/account-avatar-profile-user.svg'
 
 const DropdownUser = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false)
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
 
     return (
         <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
-            <Link onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-4" to="#">
+            <div onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-4 cursor-pointer">
                 <span className="hidden text-right lg:block">
                     <span className="block text-sm font-medium text-black dark:text-white">Brian Kallens</span>
                     <span className="block text-xs">Software Engineer</span>
@@ -34,7 +34,7 @@ const DropdownUser = () => {
                         fill=""
                     />
                 </svg>
-            </Link>
+            </div>
 
             {dropdownOpen && (
                 <div
@@ -44,6 +44,7 @@ const DropdownUser = () => {
                         <li>
                             <Link
                                 to="/dashboard/profile"
+                                onClick={() => setDropdownOpen(false)}
                                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                             >
                                 <svg
@@ -69,6 +70,7 @@ const DropdownUser = () => {
                         <li>
                             <Link
                                 to="/dashboard/save-recipes"
+                                onClick={() => setDropdownOpen(false)}
                                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                             >
                                 <FaRegHeart size={20} />
@@ -78,6 +80,7 @@ const DropdownUser = () => {
                         <li>
                             <Link
                                 to="/dashboard/settings"
+                                onClick={() => setDropdownOpen(false)}
                                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                             >
                                 <svg
