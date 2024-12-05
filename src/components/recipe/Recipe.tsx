@@ -10,7 +10,7 @@ import { IRecipe } from '@/interfaces/recipes/recipes'
 export const Recipe = (recipe: IRecipe): JSX.Element => {
     return (
         <>
-            <Card className="bg-white shadow-lg w-[350px]">
+            <Card className="bg-white shadow-md w-[350px] dark:bg-black dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle>{recipe.title}</CardTitle>
