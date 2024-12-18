@@ -11,6 +11,7 @@ import { SaveRecipesPage } from '@/pages/dashboard/SaveRecipesPage'
 import { SettingsPage } from '@/pages/dashboard/SettingsPage'
 import { TagsPage } from '@/pages/dashboard/TagsPage'
 import { Root } from '@/Root'
+import { EmailVerificationPage } from '@/pages/auth/EmailVerificationPage'
 
 export const router = createBrowserRouter([
     {
@@ -21,34 +22,13 @@ export const router = createBrowserRouter([
                 path: 'dashboard',
                 element: <DashboardLayout />,
                 children: [
-                    {
-                        path: '',
-                        element: <HomePage />
-                    },
-                    {
-                        path: 'recipes',
-                        element: <RecipesPage />
-                    },
-                    {
-                        path: 'recipes/:id',
-                        element: <RecipeDetailsPage />
-                    },
-                    {
-                        path: 'tags',
-                        element: <TagsPage />
-                    },
-                    {
-                        path: 'settings',
-                        element: <SettingsPage />
-                    },
-                    {
-                        path: 'save-recipes',
-                        element: <SaveRecipesPage />
-                    },
-                    {
-                        path: 'profile',
-                        element: <ProfilePage />
-                    }
+                    { path: '', element: <HomePage /> },
+                    { path: 'recipes', element: <RecipesPage /> },
+                    { path: 'recipes/:id', element: <RecipeDetailsPage /> },
+                    { path: 'tags', element: <TagsPage /> },
+                    { path: 'settings', element: <SettingsPage /> },
+                    { path: 'save-recipes', element: <SaveRecipesPage /> },
+                    { path: 'profile', element: <ProfilePage /> }
                 ]
             }
         ]
@@ -57,14 +37,9 @@ export const router = createBrowserRouter([
         path: 'auth',
         element: <AuthLayout />,
         children: [
-            {
-                path: 'login',
-                element: <LoginPage />
-            },
-            {
-                path: 'register',
-                element: <RegisterPage />
-            }
+            { path: 'login', element: <LoginPage /> },
+            { path: 'register', element: <RegisterPage /> },
+            { path: 'verify', element: <EmailVerificationPage /> }
         ]
     }
 ])

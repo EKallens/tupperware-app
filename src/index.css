@@ -5,6 +5,7 @@
 @layer base {
     body {
         @apply font-satoshi font-normal text-base text-body bg-whiten relative z-1;
+        @apply h-full m-0 p-0;
     }
     :root {
         --background: 0 0% 100%;
@@ -59,4 +60,16 @@
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
     }
+}
+
+#root {
+    @apply h-full;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
