@@ -6,10 +6,16 @@ import { Button } from '@/components/ui/button'
 import { cn, transformDifficulty } from '@/utils/utils'
 import recipeImg from '@/assets/images/recipes/pizza.jpg'
 import { IRecipe } from '@/interfaces/recipes/recipes'
+import { motion } from 'framer-motion'
 
 export const Recipe = (recipe: IRecipe): JSX.Element => {
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-md w-full overflow-hidden"
+        >
             <Card className="bg-white shadow-md w-[350px] dark:bg-black dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
@@ -68,6 +74,6 @@ export const Recipe = (recipe: IRecipe): JSX.Element => {
                     ))}
                 </CardFooter>
             </Card>
-        </>
+        </motion.div>
     )
 }

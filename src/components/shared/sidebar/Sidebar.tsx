@@ -94,7 +94,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                                 navigateTo="/dashboard/recipes"
                                 pathname={pathname}
                                 icon={<ImSpoonKnife size={20} />}
-                                title="Administrador de recetas"
+                                title="Gestionar recetas"
                                 isActive={pathname === '/dashboard/recipes'}
                             />
                             <SidebarItem
@@ -108,7 +108,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                                 navigateTo="/dashboard/settings"
                                 pathname={pathname}
                                 icon={<IoMdSettings size={20} />}
-                                title="Configuración Cuenta"
+                                title="Configuración cuenta"
                                 isActive={pathname === '/dashboard/settings'}
                             />
                         </ul>

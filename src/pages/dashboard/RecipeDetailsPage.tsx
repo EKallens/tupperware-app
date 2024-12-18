@@ -3,13 +3,14 @@ import { MdOutlineSoupKitchen } from 'react-icons/md'
 import RecipeImage from '@/assets/images/recipes/pizza.jpg'
 import { IoTimerOutline, IoArrowBackOutline, IoMedical } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export const RecipeDetailsPage = (): JSX.Element => {
     const navigate = useNavigate()
     const handleGoBack = () => navigate(-1)
 
     return (
-        <>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <span
                 onClick={handleGoBack}
                 className="flex flex-row items-center mb-4 bg-black text-white p-2 w-20 rounded-md cursor-pointer shadow-md"
@@ -118,6 +119,6 @@ export const RecipeDetailsPage = (): JSX.Element => {
                     </div>
                 </div>
             </div>
-        </>
+        </motion.div>
     )
 }

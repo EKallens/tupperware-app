@@ -5,6 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { ColumnDef } from '@tanstack/react-table'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Edit, MoreHorizontal } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 type Props = {
     id: string
@@ -96,18 +97,11 @@ const columns: ColumnDef<any>[] = [
 
 export const RecipesPage = (): JSX.Element => {
     return (
-        <div className="mx-auto max-w-170">
-            <Breadcrumb pageName="Recetas" />
-            <div className="p-4 bg-white rounded-sm dark:bg-black">
-                <DataTable
-                    columns={columns}
-                    data={data}
-                    filterKey="title"
-                    onDelete={() => {
-                        console.log('onDelete')
-                    }}
-                />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="mx-auto max-w-170">
+                <Breadcrumb pageName="Recetas" />
+                <div className="p-4 bg-white rounded-sm dark:bg-black"></div>
             </div>
-        </div>
+        </motion.div>
     )
 }
