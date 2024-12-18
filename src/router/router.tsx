@@ -4,7 +4,6 @@ import { DashboardLayout } from '@/layouts/dashboard/DashboardLayout'
 import { LoginPage } from '@/pages/auth/LoginPage'
 import { RegisterPage } from '@/pages/auth/RegisterPage'
 import { HomePage } from '@/pages/dashboard/HomePage'
-import { ProfilePage } from '@/pages/dashboard/ProfilePage'
 import { RecipeDetailsPage } from '@/pages/dashboard/RecipeDetailsPage'
 import { RecipesPage } from '@/pages/dashboard/RecipesPage'
 import { SaveRecipesPage } from '@/pages/dashboard/SaveRecipesPage'
@@ -27,8 +26,7 @@ export const router = createBrowserRouter([
                     { path: 'recipes/:id', element: <RecipeDetailsPage /> },
                     { path: 'tags', element: <TagsPage /> },
                     { path: 'settings', element: <SettingsPage /> },
-                    { path: 'save-recipes', element: <SaveRecipesPage /> },
-                    { path: 'profile', element: <ProfilePage /> }
+                    { path: 'save-recipes', element: <SaveRecipesPage /> }
                 ]
             }
         ]
