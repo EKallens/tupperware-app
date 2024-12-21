@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouteObject, RouterProvider } from 'react-router-dom'
 import { AuthLayout } from '@/layouts/auth/AuthLayout'
 import { DashboardLayout } from '@/layouts/dashboard/DashboardLayout'
 import { LoginPage } from '@/pages/auth/LoginPage'
@@ -11,15 +11,38 @@ import { SettingsPage } from '@/pages/dashboard/SettingsPage'
 import { TagsPage } from '@/pages/dashboard/TagsPage'
 import { Root } from '@/Root'
 import { EmailVerificationPage } from '@/pages/auth/EmailVerificationPage'
+import { useAuthStore } from '@/store/useAuthStore'
+import { useEffect } from 'react'
+import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 
-export const router = createBrowserRouter([
+const ProtectedRoute = ({ children }: any) => {
+    const { isAuthenticated, isCheckingAuth, checkAuth } = useAuthStore()
+
+    useEffect(() => {
+        checkAuth()
+    }, [checkAuth])
+
+    if (isCheckingAuth) {
+        return <LoadingSpinner />
+    }
+    if (!isAuthenticated) {
+        return <Navigate to="/auth/login" replace />
+    }
+    return children
+}
+
+const routes: RouteObject[] = [
     {
         path: '/',
         element: <Root />,
         children: [
             {
                 path: 'dashboard',
-                element: <DashboardLayout />,
+                element: (
+                    <ProtectedRoute>
+                        <DashboardLayout />
+                    </ProtectedRoute>
+                ),
                 children: [
                     { path: '', element: <HomePage /> },
                     { path: 'recipes', element: <RecipesPage /> },
@@ -35,9 +58,25 @@ export const router = createBrowserRouter([
         path: 'auth',
         element: <AuthLayout />,
         children: [
-            { path: 'login', element: <LoginPage /> },
-            { path: 'register', element: <RegisterPage /> },
+            {
+                path: 'login',
+                element: <LoginPage />
+            },
+            {
+                path: 'register',
+                element: <RegisterPage />
+            },
             { path: 'verify', element: <EmailVerificationPage /> }
         ]
+    },
+    {
+        path: '*',
+        element: <Navigate to="/dashboard" replace />
     }
-])
+]
+
+const router = createBrowserRouter(routes)
+
+export const Routes: React.FC = () => {
+    return <RouterProvider router={router} />
+}

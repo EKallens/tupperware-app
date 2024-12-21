@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Loader } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export const EmailVerificationPage = () => {
     const [code, setCode] = useState(['', '', '', '', '', ''])
+    const [isLoading, setIsLoading] = useState(false)
     const inputRefs = useRef<any[]>([])
     const navigate = useNavigate()
-
-    // const { error, isLoading, verifyEmail } = useAuthStore();
 
     const handleChange = (index: number, value: string) => {
         const newCode = [...code]
@@ -42,11 +43,15 @@ export const EmailVerificationPage = () => {
     }
 
     const handleSubmit = async (e: any) => {
+        setIsLoading(true)
         e.preventDefault()
         const verificationCode = code.join('')
         try {
-            //await verifyEmail(verificationCode)
-            navigate('/')
+            console.log(verificationCode)
+            setTimeout(() => {
+                setIsLoading(false)
+                navigate('/dashboard')
+            }, 3000)
         } catch (error) {
             console.log(error)
         }
@@ -67,10 +72,8 @@ export const EmailVerificationPage = () => {
                 transition={{ duration: 0.5 }}
                 className="bg-black backdrop-blur-xl rounded-2xl shadow-2xl p-8 w-full max-w-md"
             >
-                <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-500 text-transparent bg-clip-text">
-                    Verify Your Email
-                </h2>
-                <p className="text-center text-gray-300 mb-6">Enter the 6-digit code sent to your email address.</p>
+                <h2 className="text-3xl font-bold mb-6 text-center text-primary">Verifica tu correo</h2>
+                <p className="text-center text-gray-300 mb-6">Ingresa el código de 6 dígitos enviado a tu correo</p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="flex justify-between">
@@ -83,20 +86,19 @@ export const EmailVerificationPage = () => {
                                 value={digit}
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(index, e)}
-                                className="w-12 h-12 text-center text-2xl font-bold bg-gray-700 text-white border-2 border-gray-600 rounded-lg focus:border-green-500 focus:outline-none"
+                                className="w-12 h-12 text-center text-2xl font-bold bg-gray-700 text-white border-2 border-gray-600 rounded-lg focus:border-primary focus:outline-none"
                             />
                         ))}
                     </div>
-                    {/* {error && <p className="text-red-500 font-semibold mt-2">{error}</p>} */}
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                    <Button
+                        variant="primary"
                         type="submit"
-                        disabled={code.some((digit) => !digit)}
-                        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 disabled:opacity-50"
+                        className="w-full text-md rounded-lg"
+                        disabled={isLoading}
+                        onClick={handleSubmit}
                     >
-                        {true! ? 'Verifying...' : 'Verify Email'}
-                    </motion.button>
+                        {isLoading ? <Loader className="animate-spin" /> : 'Verificar Correo'}
+                    </Button>
                 </form>
             </motion.div>
         </div>

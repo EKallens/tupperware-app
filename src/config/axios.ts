@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-console.log(import.meta.env.VITE_API_URL)
-
 const options = {
     baseURL: import.meta.env.VITE_API_URL
 }
@@ -9,11 +7,12 @@ const options = {
 const API = axios.create(options)
 
 API.interceptors.response.use(
-    (response) => response.data,
+    (response) => response,
     (error) => {
-        const { status, data } = error.response
-        return Promise.reject({ ...status, ...data })
+        return Promise.reject(new Error(error.response.data.error || 'Algo salió mal'))
     }
 )
+
+API.defaults.withCredentials = true
 
 export default API

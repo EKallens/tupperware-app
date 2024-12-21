@@ -6,16 +6,32 @@ import UserOne from '@/assets/images/user/account-avatar-profile-user.svg'
 import { IoMdSettings } from 'react-icons/io'
 import { BiLogOut } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
+import { useAuthStore } from '@/store/useAuthStore'
+import { useMutation } from '@tanstack/react-query'
+import { logout } from '@/lib/authApi'
 
 export const DropdownUser = (): JSX.Element => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
+    const { user, setIsAuthenticated, setUser } = useAuthStore()
+
+    const { mutate } = useMutation({
+        mutationFn: logout,
+        onSuccess: () => {
+            setIsAuthenticated(false)
+            setUser(null)
+        }
+    })
+
+    const handleLogout = () => {
+        mutate()
+    }
 
     return (
         <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
             <div onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-4 cursor-pointer">
                 <span className="hidden text-right lg:block">
-                    <span className="block text-sm font-medium text-black dark:text-white">Brian Kallens</span>
-                    <span className="block text-xs">Software Engineer</span>
+                    <span className="block text-sm font-medium text-black dark:text-white">{user?.name}</span>
+                    <span className="block text-xs">{user?.email}</span>
                 </span>
 
                 <span className="h-12 w-12 rounded-full">
@@ -50,15 +66,13 @@ export const DropdownUser = (): JSX.Element => {
                             </Link>
                         </li>
                     </ul>
-                    <Link
-                        to="/auth/login"
-                        className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
-                            <BiLogOut size={20} />
-                            Cerrar Sesión
-                        </button>
-                    </Link>
+                        <BiLogOut size={20} />
+                        Cerrar Sesión
+                    </button>
                 </div>
             )}
         </ClickOutside>
