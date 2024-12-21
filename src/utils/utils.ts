@@ -5,13 +5,13 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
 }
 
-export function transformDifficulty(difficulty: string) {
+export function transformDifficulty(difficulty: number) {
     switch (difficulty) {
-        case 'easy':
+        case 1:
             return 'Fácil'
-        case 'medium':
+        case 2:
             return 'Intermedio'
-        case 'hard':
+        case 3:
             return 'Difícil'
         default:
             return difficulty

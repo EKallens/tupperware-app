@@ -19,3 +19,19 @@ export interface CheckAuthResponse {
     email: string
     isVerified: boolean
 }
+
+export interface User {
+    id: string
+    name: string
+    email: string
+    isVerified?: boolean
+}
+
+export interface AuthState {
+    user: User | null
+    setUser: (user: User | null) => void
+    isAuthenticated: boolean
+    setIsAuthenticated: (isAuthenticated: boolean) => void
+    checkAuth: () => void
+    isCheckingAuth: boolean
+}

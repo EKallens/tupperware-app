@@ -4,17 +4,22 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { cn, transformDifficulty } from '@/utils/utils'
-import recipeImg from '@/assets/images/recipes/pizza.jpg'
-import { IRecipe } from '@/interfaces/recipes/recipes'
+import defaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
+import { IRecipe } from '@/interfaces/recipes/recipes.interface'
 import { motion } from 'framer-motion'
 
-export const Recipe = (recipe: IRecipe): JSX.Element => {
+interface RecipeProps {
+    recipe: IRecipe
+}
+
+export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="max-w-md w-full overflow-hidden"
+            key={recipe.id}
         >
             <Card className="bg-white shadow-md w-[350px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
@@ -36,19 +41,18 @@ export const Recipe = (recipe: IRecipe): JSX.Element => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <img src={recipeImg} alt="recipe" />
+                    <img src={recipe.img || defaultRecipeImage} alt="recipe" />
                     <div className="flex flex-col gap-4 mt-4">
                         <div className="flex flex-wrap items-center">
                             <span className="text-sm">Dificultad:</span>
                             <span
                                 className={cn(
                                     'ml-1 font-bold text-xs me-2 px-2.5 py-0.5 rounded-full',
-                                    recipe.difficulty === 'easy' &&
+                                    recipe.difficulty === 1 &&
                                         'bg-green-100 text-green-800 dark:bg-green-900 dark:text-white',
-                                    recipe.difficulty === 'medium' &&
+                                    recipe.difficulty === 2 &&
                                         'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-white',
-                                    recipe.difficulty === 'hard' &&
-                                        'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
+                                    recipe.difficulty === 3 && 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-white'
                                 )}
                             >
                                 {transformDifficulty(recipe.difficulty)}
@@ -65,11 +69,10 @@ export const Recipe = (recipe: IRecipe): JSX.Element => {
                         </Button>
                     </Link>
                 </CardContent>
-                <CardFooter>
-                    {recipe.tags.map((tag, index) => (
-                        // TODO: Update with tag id
-                        <span key={tag + index} className="mr-1">
-                            #{tag}{' '}
+                <CardFooter className="break-all">
+                    {recipe.tags.map((tag) => (
+                        <span key={tag.id} className="mr-1">
+                            #{tag.name}{' '}
                         </span>
                     ))}
                 </CardFooter>

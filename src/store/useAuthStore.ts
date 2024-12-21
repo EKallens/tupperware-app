@@ -1,21 +1,6 @@
 import { create } from 'zustand'
 import { checkAuth } from '@/lib/authApi'
-
-interface User {
-    id: string
-    name: string
-    email: string
-    isVerified?: boolean
-}
-
-interface AuthState {
-    user: User | null
-    setUser: (user: User | null) => void
-    isAuthenticated: boolean
-    setIsAuthenticated: (isAuthenticated: boolean) => void
-    checkAuth: () => void
-    isCheckingAuth: boolean
-}
+import { AuthState } from '@/interfaces/auth/auth.interface'
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,

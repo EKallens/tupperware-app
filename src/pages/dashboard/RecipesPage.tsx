@@ -1,55 +1,17 @@
 import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 import { DataTable } from '@/components/data-table/DataTable'
+import { getUserRecipes } from '@/lib/recipesApi'
+import { useAuthStore } from '@/store/useAuthStore'
+import { useQuery } from '@tanstack/react-query'
+import { motion } from 'framer-motion'
+import { ColumnDef } from '@tanstack/react-table'
+import { IRecipe } from '@/interfaces/recipes/recipes.interface'
+import { transformDifficulty } from '../../utils/utils'
+import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ColumnDef } from '@tanstack/react-table'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Edit, MoreHorizontal } from 'lucide-react'
-import { motion } from 'framer-motion'
 
-type Props = {
-    id: string
-}
-
-const data = [
-    { id: '1', title: 'Pizza', description: 'Pizza de pepperoni' },
-    { id: '2', title: 'Hamburguesa', description: 'Hamburguesa de res' },
-    { id: '3', title: 'Tacos', description: 'Tacos de pastor' },
-    { id: '4', title: 'Sushi', description: 'Sushi de salmón' },
-    { id: '5', title: 'Pasta', description: 'Pasta a la bolognesa' },
-    { id: '6', title: 'Ensalada', description: 'Ensalada cesar' },
-    { id: '7', title: 'Pescado', description: 'Pescado frito' },
-    { id: '8', title: 'Pollo', description: 'Pollo a la naranja' },
-    { id: '9', title: 'Carne', description: 'Carne asada' },
-    { id: '10', title: 'Tamales', description: 'Tamales de rajas' }
-]
-
-//TODO: We should receive the id from the row as parameter
-const Actions = () => {
-    const onDelete = async () => {}
-
-    return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="size-8 p-0">
-                    <MoreHorizontal />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white" align="end">
-                <DropdownMenuItem className="cursor-pointer" disabled={false} onClick={() => {}}>
-                    <Edit className="size-4 mr-2" />
-                    Editar
-                </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer" disabled={false} onClick={onDelete}>
-                    <Edit className="size-4 mr-2" />
-                    Eliminar
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-    )
-}
-
-const columns: ColumnDef<any>[] = [
+export const columns: ColumnDef<IRecipe>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -71,36 +33,48 @@ const columns: ColumnDef<any>[] = [
     },
     {
         accessorKey: 'title',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Receta
-                </Button>
-            )
-        }
+        header: () => <div className="font-bold">Título</div>
     },
     {
-        accessorKey: 'description',
-        header: ({ column }) => {
-            return (
-                <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-                    Descripción
-                </Button>
-            )
-        }
+        accessorKey: 'difficulty',
+        header: () => <div className="font-bold">Dificultad</div>,
+        cell: ({ row }) => <div>{transformDifficulty(row.getValue('difficulty'))}</div>
     },
     {
-        id: 'actions',
-        cell: () => <Actions />
+        accessorKey: 'isFavorite',
+        header: () => <div className="font-bold">Favorita</div>,
+        cell: ({ row }) => <div>{row.getValue('isFavorite') ? 'Sí' : 'No'}</div>
+    },
+    {
+        accessorKey: 'servings',
+        header: () => <div className="font-bold">Porciones</div>,
+        cell: ({ row }) => <div className="">{row.getValue('servings')} personas</div>
     }
 ]
 
 export const RecipesPage = (): JSX.Element => {
+    const { user } = useAuthStore()
+    const { data, isLoading } = useQuery({
+        queryKey: ['recipes'],
+        queryFn: () => user && getUserRecipes(user?.id)
+    })
+
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="mx-auto max-w-170">
                 <Breadcrumb pageName="Recetas" />
-                <div className="p-4 bg-white rounded-sm dark:bg-black"></div>
+                <div className="flex">
+                    <Button variant="primary" className="ml-auto mb-4">
+                        Crear nueva receta
+                    </Button>
+                </div>
+                <div className="p-4 bg-white rounded-sm dark:bg-black">
+                    {(data?.length === 0 && isLoading) || !data ? (
+                        <LoadingSpinner />
+                    ) : (
+                        <DataTable columns={columns} data={data || []} filterKey="title" onDelete={() => {}} />
+                    )}
+                </div>
             </div>
         </motion.div>
     )

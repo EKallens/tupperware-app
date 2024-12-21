@@ -14,7 +14,6 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-// import { useConfirm } from '@/hooks/use-confirm'
 import { Trash } from 'lucide-react'
 
 interface DataTableProps<TData, TValue> {
@@ -25,15 +24,14 @@ interface DataTableProps<TData, TValue> {
     disabled?: boolean
 }
 
-export function DataTable<TData, TValue>({
+export const DataTable = <TData, TValue>({
     columns,
     data,
     filterKey,
     onDelete,
     disabled
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) => {
     const [sorting, setSorting] = React.useState<SortingState>([])
-    // const [ConfirmDialog, confirm] = useConfirm('¿Estás seguro?', 'Esta acción no se puede deshacer.')
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [rowSelection, setRowSelection] = React.useState({})
     const table = useReactTable({
@@ -52,8 +50,6 @@ export function DataTable<TData, TValue>({
             rowSelection
         }
     })
-
-    if (!data) return <div>Cargando...</div>
 
     return (
         <div>

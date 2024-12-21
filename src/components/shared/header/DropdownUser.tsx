@@ -7,18 +7,20 @@ import { IoMdSettings } from 'react-icons/io'
 import { BiLogOut } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useAuthStore } from '@/store/useAuthStore'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { logout } from '@/lib/authApi'
 
 export const DropdownUser = (): JSX.Element => {
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
     const { user, setIsAuthenticated, setUser } = useAuthStore()
+    const queryClient = useQueryClient()
 
     const { mutate } = useMutation({
         mutationFn: logout,
         onSuccess: () => {
             setIsAuthenticated(false)
             setUser(null)
+            queryClient.clear()
         }
     })
 
