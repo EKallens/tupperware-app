@@ -16,7 +16,7 @@ export const Recipe = (recipe: IRecipe): JSX.Element => {
             transition={{ duration: 0.5 }}
             className="max-w-md w-full overflow-hidden"
         >
-            <Card className="bg-white shadow-md w-[350px] dark:bg-black dark:border-none">
+            <Card className="bg-white shadow-md w-[350px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle>{recipe.title}</CardTitle>

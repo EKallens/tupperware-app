@@ -37,6 +37,7 @@ export default {
 			primary: '#3C50E0',
 			secondary: '#80CAEE',
 			stroke: '#E2E8F0',
+			primaryDark: '#2F3245',
 			gray: {
 			  ...colors.gray,
 			  DEFAULT: '#EFF4FB',
