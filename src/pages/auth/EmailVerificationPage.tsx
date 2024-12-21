@@ -3,12 +3,28 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Loader } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useMutation } from '@tanstack/react-query'
+import { verifyEmail } from '@/lib/authApi'
+import { toast, Toaster } from 'sonner'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export const EmailVerificationPage = () => {
     const [code, setCode] = useState(['', '', '', '', '', ''])
-    const [isLoading, setIsLoading] = useState(false)
     const inputRefs = useRef<any[]>([])
     const navigate = useNavigate()
+    const { setIsAuthenticated } = useAuthStore()
+
+    const { mutate, isError, error, isPending } = useMutation({
+        mutationFn: verifyEmail,
+        onSuccess: () => {
+            setIsAuthenticated(true)
+            navigate('/dashboard')
+            toast.success('Email verificado correctamente', {
+                duration: 5000,
+                position: 'top-center'
+            })
+        }
+    })
 
     const handleChange = (index: number, value: string) => {
         const newCode = [...code]
@@ -43,15 +59,10 @@ export const EmailVerificationPage = () => {
     }
 
     const handleSubmit = async (e: any) => {
-        setIsLoading(true)
         e.preventDefault()
         const verificationCode = code.join('')
         try {
-            console.log(verificationCode)
-            setTimeout(() => {
-                setIsLoading(false)
-                navigate('/dashboard')
-            }, 3000)
+            mutate(verificationCode)
         } catch (error) {
             console.log(error)
         }
@@ -66,6 +77,7 @@ export const EmailVerificationPage = () => {
 
     return (
         <div className="bg-black max-w-md w-full backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden">
+            <Toaster />
             <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -90,14 +102,15 @@ export const EmailVerificationPage = () => {
                             />
                         ))}
                     </div>
+                    {isError && <p className="text-center text-sm text-rose-600">{error.message}</p>}
                     <Button
                         variant="primary"
                         type="submit"
                         className="w-full text-md rounded-lg"
-                        disabled={isLoading}
+                        disabled={isPending}
                         onClick={handleSubmit}
                     >
-                        {isLoading ? <Loader className="animate-spin" /> : 'Verificar Correo'}
+                        {isPending ? <Loader className="animate-spin" /> : 'Verificar Correo'}
                     </Button>
                 </form>
             </motion.div>

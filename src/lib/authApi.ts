@@ -17,6 +17,12 @@ export const logout = async (): Promise<void> => {
     return await API.post(`${apiUrl}/api/auth/logout`)
 }
 
+export const verifyEmail = async (token: string): Promise<void> => {
+    return await API.post(`${apiUrl}/api/auth/verify-email`, {
+        token
+    })
+}
+
 export const checkAuth = async (): Promise<CheckAuthResponse> => {
     const response = await API.get<CheckAuthResponse>(`${apiUrl}/api/auth/check-auth`)
     return response.data

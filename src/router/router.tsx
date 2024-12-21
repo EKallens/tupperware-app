@@ -26,6 +26,7 @@ const ProtectedRoute = ({ children }: any) => {
         return <LoadingSpinner />
     }
     if (!isAuthenticated) {
+        console.log(isAuthenticated)
         return <Navigate to="/auth/login" replace />
     }
     return children

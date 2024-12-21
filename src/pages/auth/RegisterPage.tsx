@@ -24,7 +24,7 @@ export const RegisterPage = (): JSX.Element => {
     const { register, reset, handleSubmit } = useForm<RegisterFormInputs>()
     const setUser = useAuthStore((state) => state.setUser)
 
-    const { mutate, isPending } = useMutation({
+    const { mutate, isPending, isError, error } = useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
             setUser({
@@ -95,6 +95,9 @@ export const RegisterPage = (): JSX.Element => {
                                     {...register('password', { required: true })}
                                 />
                             </div>
+
+                            {isError && <p className="text-sm text-rose-600">{error.message}</p>}
+
                             <Button variant="primary" type="submit" className="w-full" disabled={isPending}>
                                 Registrarse {isPending ? <Loader className="w-6 h-6 animate-spin" /> : null}
                             </Button>
