@@ -6,8 +6,11 @@ import { Input } from '@/components/ui/input'
 import { IoMdMail } from 'react-icons/io'
 import { FaUser } from 'react-icons/fa'
 import { FaCloudArrowUp } from 'react-icons/fa6'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export const SettingsPage = (): JSX.Element => {
+    const { user } = useAuthStore()
+
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <div className="mx-auto max-w-170">
@@ -36,7 +39,7 @@ export const SettingsPage = (): JSX.Element => {
                                                     type="text"
                                                     placeholder="Nombre"
                                                     className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokeDark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                                                    defaultValue="Brian Kallens"
+                                                    defaultValue={user?.name}
                                                     required
                                                 />
                                             </div>
@@ -57,7 +60,7 @@ export const SettingsPage = (): JSX.Element => {
                                                 type="email"
                                                 placeholder="email@example.com"
                                                 className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokeDark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                                                defaultValue="e.kallensp@gmail.com"
+                                                defaultValue={user?.email}
                                                 required
                                             />
                                         </div>
