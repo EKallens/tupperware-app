@@ -2,9 +2,9 @@ import { TagActionColumn } from '@/components/actions/TagActionColumn'
 import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 import { DataTable } from '@/components/data-table/DataTable'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
-import { EditTagSheet } from '@/components/sheets/EditTagSheet'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { useNewTag } from '@/hooks/use-new-tag'
 import { ITag } from '@/interfaces/tags/tags.interface'
 import { getTags } from '@/lib/tagsApi'
 import { useQuery } from '@tanstack/react-query'
@@ -47,6 +47,7 @@ const columns: ColumnDef<ITag>[] = [
 ]
 
 export const TagsPage = (): JSX.Element => {
+    const { onOpen } = useNewTag()
     const { data, isLoading } = useQuery({
         queryKey: ['tags'],
         queryFn: getTags
@@ -57,7 +58,7 @@ export const TagsPage = (): JSX.Element => {
             <div className="mx-auto max-w-170">
                 <Breadcrumb pageName="Etiquetas" />
                 <div className="flex">
-                    <Button variant="primary" className="ml-auto mb-4">
+                    <Button onClick={onOpen} variant="primary" className="ml-auto mb-4">
                         Crear nuevo tag
                     </Button>
                 </div>

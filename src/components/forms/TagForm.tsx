@@ -3,6 +3,8 @@ import { FormControl, FormField, FormItem, FormLabel, Form } from '../ui/form'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Loader } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { updateTagSchema } from '@/schemas/tag.schema'
 
 type Props = {
     id?: string
@@ -12,8 +14,9 @@ type Props = {
     disabled?: boolean
 }
 
-export const EditTagForm = ({ id, defaultValues, onSubmit, disabled }: Props): JSX.Element => {
+export const TagForm = ({ id, defaultValues, onSubmit, disabled }: Props): JSX.Element => {
     const form = useForm<{ name: string }>({
+        resolver: zodResolver(updateTagSchema),
         defaultValues
     })
 
@@ -31,11 +34,19 @@ export const EditTagForm = ({ id, defaultValues, onSubmit, disabled }: Props): J
                         <FormItem>
                             <FormLabel>Nombre</FormLabel>
                             <FormControl>
-                                <Input disabled={disabled} placeholder="p.ej. queso, tomate..." {...field} />
+                                <Input
+                                    className="mb-2"
+                                    disabled={disabled}
+                                    placeholder="p.ej. queso, tomate..."
+                                    {...field}
+                                />
                             </FormControl>
                         </FormItem>
                     )}
                 />
+                {form.formState.errors.name ? (
+                    <span className="mb-2 text-sm text-rose-600">Debes ingresar un nombre</span>
+                ) : null}
                 <Button variant="primary" className="w-full" disabled={disabled}>
                     {id ? 'Guardar cambios' : 'Crear etiqueta'}{' '}
                     {disabled ? <Loader className="ml-2 animate-spin" /> : null}

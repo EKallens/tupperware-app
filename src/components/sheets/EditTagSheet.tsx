@@ -3,7 +3,8 @@ import { Loader2 } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getTagById, updateTag } from '@/lib/tagsApi'
 import { useOpenTag } from '@/hooks/use-open-tag'
-import { EditTagForm } from '../forms/EditTagForm'
+import { TagForm } from '../forms/TagForm'
+import { toast, Toaster } from 'sonner'
 
 export const EditTagSheet = () => {
     const { isOpen, onClose, id } = useOpenTag()
@@ -17,6 +18,7 @@ export const EditTagSheet = () => {
     const updateTagMutation = useMutation({
         mutationFn: (value: string) => updateTag(id!, value),
         onSuccess: () => {
+            toast.success('Etiqueta actualizada correctamente')
             onClose()
             queryClient.invalidateQueries({ queryKey: ['tag', id] })
             queryClient.invalidateQueries({ queryKey: ['tags'] })
@@ -24,11 +26,12 @@ export const EditTagSheet = () => {
     })
 
     const onSubmit = (value: { name: string }) => {
-        updateTagMutation.mutate(value.name)
+        updateTagMutation.mutate(value.name.replace(/\s+/g, '').toLocaleLowerCase())
     }
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
+            <Toaster />
             <SheetContent className="bg-white space-y-4">
                 <SheetHeader>
                     <SheetTitle>Editar Etiqueta</SheetTitle>
@@ -39,7 +42,7 @@ export const EditTagSheet = () => {
                         <Loader2 className="size-4 text-muted-foreground animate-spin" />
                     </div>
                 ) : (
-                    <EditTagForm
+                    <TagForm
                         id={id}
                         onSubmit={onSubmit}
                         defaultValues={{ name: data.name }}
