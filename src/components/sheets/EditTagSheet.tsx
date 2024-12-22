@@ -1,0 +1,52 @@
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Loader2 } from 'lucide-react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getTagById, updateTag } from '@/lib/tagsApi'
+import { useOpenTag } from '@/hooks/use-open-tag'
+import { EditTagForm } from '../forms/EditTagForm'
+
+export const EditTagSheet = () => {
+    const { isOpen, onClose, id } = useOpenTag()
+    const queryClient = useQueryClient()
+    const { data, isLoading } = useQuery({
+        queryKey: ['tag', id],
+        queryFn: () => getTagById(id!),
+        enabled: isOpen && !!id
+    })
+
+    const updateTagMutation = useMutation({
+        mutationFn: (value: string) => updateTag(id!, value),
+        onSuccess: () => {
+            onClose()
+            queryClient.invalidateQueries({ queryKey: ['tag', id] })
+            queryClient.invalidateQueries({ queryKey: ['tags'] })
+        }
+    })
+
+    const onSubmit = (value: { name: string }) => {
+        updateTagMutation.mutate(value.name)
+    }
+
+    return (
+        <Sheet open={isOpen} onOpenChange={onClose}>
+            <SheetContent className="bg-white space-y-4">
+                <SheetHeader>
+                    <SheetTitle>Editar Etiqueta</SheetTitle>
+                    <SheetDescription>Edita una etiqueta existente</SheetDescription>
+                </SheetHeader>
+                {isLoading || !data ? (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <Loader2 className="size-4 text-muted-foreground animate-spin" />
+                    </div>
+                ) : (
+                    <EditTagForm
+                        id={id}
+                        onSubmit={onSubmit}
+                        defaultValues={{ name: data.name }}
+                        disabled={updateTagMutation.isPending}
+                    />
+                )}
+            </SheetContent>
+        </Sheet>
+    )
+}

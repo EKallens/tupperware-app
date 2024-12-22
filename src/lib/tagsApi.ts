@@ -7,3 +7,13 @@ export const getTags = async (): Promise<ITag[]> => {
     const response = await API.get<ITag[]>(`${apiUrl}/api/tags`)
     return response.data
 }
+
+export const getTagById = async (id: string): Promise<ITag> => {
+    const response = await API.get<ITag>(`${apiUrl}/api/tags/${id}`)
+    return response.data
+}
+
+export const updateTag = async (id: string, name: string): Promise<ITag> => {
+    const response = await API.patch<ITag>(`${apiUrl}/api/tags/${id}`, { name })
+    return response.data
+}

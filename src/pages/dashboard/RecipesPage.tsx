@@ -10,8 +10,10 @@ import { transformDifficulty } from '../../utils/utils'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu'
+import { Edit, MoreHorizontal, Trash } from 'lucide-react'
 
-export const columns: ColumnDef<IRecipe>[] = [
+const columns: ColumnDef<IRecipe>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -49,6 +51,31 @@ export const columns: ColumnDef<IRecipe>[] = [
         accessorKey: 'servings',
         header: () => <div className="font-bold">Porciones</div>,
         cell: ({ row }) => <div className="">{row.getValue('servings')} personas</div>
+    },
+    {
+        id: 'actions',
+        enableHiding: false,
+        cell: ({ row }) => {
+            return (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <MoreHorizontal />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="bg-white" align="end">
+                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
+                            <Edit className="size-4 mr-2" />
+                            Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
+                            <Trash className="size-4 mr-2" />
+                            Eliminar
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )
+        }
     }
 ]
 

@@ -1,15 +1,15 @@
+import { TagActionColumn } from '@/components/actions/TagActionColumn'
 import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 import { DataTable } from '@/components/data-table/DataTable'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
+import { EditTagSheet } from '@/components/sheets/EditTagSheet'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { ITag } from '@/interfaces/tags/tags.interface'
 import { getTags } from '@/lib/tagsApi'
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { motion } from 'framer-motion'
-import { Trash, Edit, MoreHorizontal } from 'lucide-react'
 
 const columns: ColumnDef<ITag>[] = [
     {
@@ -41,25 +41,7 @@ const columns: ColumnDef<ITag>[] = [
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <MoreHorizontal />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white" align="end">
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
-                            <Edit className="size-4 mr-2" />
-                            Editar
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
-                            <Trash className="size-4 mr-2" />
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
+            return <TagActionColumn id={row.original.id} />
         }
     }
 ]
