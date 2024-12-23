@@ -83,16 +83,15 @@ export const LoginPage = (): JSX.Element => {
 
                             {isError && <p className="text-sm text-rose-600">{error.message}</p>}
 
+                            <div className="mt-4 mb-4 text-right text-primary text-sm">
+                                <Link to="/auth/forgot" className="underline">
+                                    Olvidaste la contraseña?
+                                </Link>
+                            </div>
+
                             <Button variant="primary" type="submit" className="w-full" disabled={isPending}>
                                 Iniciar sesión {isPending ? <Loader className="w-6 h-6 animate-spin" /> : null}
                             </Button>
-                        </div>
-
-                        <div className="mt-4 mb-4 text-center text-sm">
-                            No tienes una cuenta?{' '}
-                            <Link to="/auth/register" className="underline">
-                                Regístrate
-                            </Link>
                         </div>
 
                         <div className="relative py-4 mb-2">
@@ -110,6 +109,12 @@ export const LoginPage = (): JSX.Element => {
                             <img src={GoogleLogo} alt="Google" width={30} height={30} />
                             Google
                         </Button>
+                        <div className="mt-4 mb-4 text-center text-sm">
+                            No tienes una cuenta?{' '}
+                            <Link to="/auth/register" className="underline">
+                                Regístrate
+                            </Link>
+                        </div>
                     </CardContent>
                 </Card>
             </form>

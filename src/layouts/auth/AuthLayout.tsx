@@ -6,7 +6,7 @@ export const AuthLayout = (): JSX.Element => {
     return (
         <div
             className={`flex items-center justify-center lg:p-30 md:p-46 sm:14 p-8 w-full h-full ${
-                pathname !== '/auth/verify' ? 'bg-background' : 'bg-gray-50'
+                !pathname.includes('verify') || !pathname.includes('recovery') ? 'bg-background' : 'bg-gray-50'
             }`}
         >
             <Outlet />
