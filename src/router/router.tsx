@@ -15,6 +15,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { useEffect } from 'react'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage'
+import { ResetPasswordPage } from '@/pages/auth/ResetPasswordPage'
 
 const ProtectedRoute = ({ children }: any) => {
     const { isAuthenticated, isCheckingAuth, checkAuth } = useAuthStore()
@@ -63,7 +64,7 @@ const routes: RouteObject[] = [
             { path: 'register', element: <RegisterPage /> },
             { path: 'verify', element: <EmailVerificationPage /> },
             { path: 'forgot', element: <ForgotPasswordPage /> },
-            { path: 'recovery', element: <ForgotPasswordPage /> }
+            { path: 'reset-password/:token', element: <ResetPasswordPage /> }
         ]
     },
     {

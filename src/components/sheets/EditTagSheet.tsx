@@ -1,5 +1,5 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
-import { Loader2 } from 'lucide-react'
+import { Loader } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getTagById, updateTag } from '@/lib/tagsApi'
 import { useOpenTag } from '@/hooks/use-open-tag'
@@ -39,7 +39,7 @@ export const EditTagSheet = () => {
                 </SheetHeader>
                 {isLoading || !data ? (
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <Loader2 className="size-4 text-muted-foreground animate-spin" />
+                        <Loader className="size-4 text-muted-foreground animate-spin" />
                     </div>
                 ) : (
                     <TagForm

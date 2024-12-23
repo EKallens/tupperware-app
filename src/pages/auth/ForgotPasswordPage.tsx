@@ -50,7 +50,7 @@ export const ForgotPasswordPage = () => {
                 <Form {...form}>
                     {!isSuccess ? (
                         <form onSubmit={form.handleSubmit(handleSubmit)}>
-                            <p className="text-gray-300 mb-6 text-center">
+                            <p className="text-gray-300 mb-6 text-center text-sm">
                                 Ingresa tu correo y te enviaremos un link para restablecer tu contraseña
                             </p>
                             <FormField

@@ -30,3 +30,8 @@ export const forgotPassword = async (email: string): Promise<void> => {
     const response = await API.post(`${apiUrl}/api/auth/forgot-password`, { email })
     return response.data
 }
+
+export const resetPassword = async (token: string, password: string): Promise<void> => {
+    const response = await API.post(`${apiUrl}/api/auth/reset-password/${token}`, { password })
+    return response.data
+}
