@@ -1,3 +1,5 @@
+import { User } from '@/interfaces/users/users.interface'
+
 export interface LoginCredentials {
     email: string
     password: string
@@ -18,13 +20,6 @@ export interface CheckAuthResponse {
     name: string
     email: string
     isVerified: boolean
-}
-
-export interface User {
-    id: string
-    name: string
-    email: string
-    isVerified?: boolean
 }
 
 export interface AuthState {

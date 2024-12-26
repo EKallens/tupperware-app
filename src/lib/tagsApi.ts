@@ -1,6 +1,5 @@
 import API from '@/config/axios'
 import { ITag } from '@/interfaces/tags/tags.interface'
-import { create } from 'zustand'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
