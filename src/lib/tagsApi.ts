@@ -22,3 +22,8 @@ export const createTag = async (name: string, createdBy: string): Promise<ITag> 
     const response = await API.post<ITag>(`${apiUrl}/api/tags`, { name, createdBy })
     return response.data
 }
+
+export const deleteTag = async (id: string): Promise<void> => {
+    const response = await API.delete<void>(`${apiUrl}/api/tags/${id}`)
+    return response.data
+}

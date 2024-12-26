@@ -32,7 +32,7 @@ export const CreateTagSheet = () => {
                     <SheetTitle>Crear Etiqueta</SheetTitle>
                     <SheetDescription>Crea una nueva etiqueta</SheetDescription>
                 </SheetHeader>
-                <TagForm onSubmit={onSubmit} disabled={createTagMutation.isPending} />
+                <TagForm onSubmit={onSubmit} disabled={createTagMutation.isPending} defaultValues={{ name: '' }} />
             </SheetContent>
         </Sheet>
     )
