@@ -12,7 +12,8 @@ export const EditTagSheet = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['tag', id],
         queryFn: () => getTagById(id!),
-        enabled: isOpen && !!id
+        enabled: isOpen && !!id,
+        refetchOnWindowFocus: false
     })
 
     const updateTagMutation = useMutation({

@@ -3,8 +3,8 @@ import { ITag } from '@/interfaces/tags/tags.interface'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
-export const getTags = async (): Promise<ITag[]> => {
-    const response = await API.get<ITag[]>(`${apiUrl}/api/tags`)
+export const getUserTags = async (userId: string): Promise<ITag[]> => {
+    const response = await API.get<ITag[]>(`${apiUrl}/api/tags/user/${userId}`)
     return response.data
 }
 
@@ -18,7 +18,7 @@ export const updateTag = async (id: string, name: string): Promise<ITag> => {
     return response.data
 }
 
-export const createTag = async (name: string): Promise<ITag> => {
-    const response = await API.post<ITag>(`${apiUrl}/api/tags`, { name })
+export const createTag = async (name: string, createdBy: string): Promise<ITag> => {
+    const response = await API.post<ITag>(`${apiUrl}/api/tags`, { name, createdBy })
     return response.data
 }

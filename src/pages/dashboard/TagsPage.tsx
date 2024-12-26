@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { useNewTag } from '@/hooks/use-new-tag'
 import { ITag } from '@/interfaces/tags/tags.interface'
-import { getTags } from '@/lib/tagsApi'
+import { getUserTags } from '@/lib/tagsApi'
+import { useAuthStore } from '@/store/useAuthStore'
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { motion } from 'framer-motion'
@@ -35,7 +36,10 @@ const columns: ColumnDef<ITag>[] = [
     },
     {
         accessorKey: 'name',
-        header: 'Nombre'
+        header: 'Nombre',
+        cell: ({ row }) => {
+            return <div>{row.original.name}</div>
+        }
     },
     {
         id: 'actions',
@@ -48,9 +52,11 @@ const columns: ColumnDef<ITag>[] = [
 
 export const TagsPage = (): JSX.Element => {
     const { onOpen } = useNewTag()
+    const { user } = useAuthStore()
     const { data, isLoading } = useQuery({
         queryKey: ['tags'],
-        queryFn: getTags
+        queryFn: () => getUserTags(user!.id),
+        refetchOnWindowFocus: false
     })
 
     return (

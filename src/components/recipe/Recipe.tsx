@@ -7,12 +7,29 @@ import { cn, transformDifficulty } from '@/utils/utils'
 import defaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
 import { IRecipe } from '@/interfaces/recipes/recipes.interface'
 import { motion } from 'framer-motion'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { updateRecipe } from '@/lib/recipesApi'
+import { Loader } from 'lucide-react'
 
 interface RecipeProps {
     recipe: IRecipe
 }
 
 export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
+    const queryClient = useQueryClient()
+    const recipeMutation = useMutation({
+        mutationFn: () => updateRecipe(recipe.id, { isFavorite: !recipe.isFavorite }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['user-recipes']
+            })
+        }
+    })
+
+    const handleFavorite = () => {
+        recipeMutation.mutate()
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -25,13 +42,22 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle>{recipe.title}</CardTitle>
-                        <div>
-                            {recipe.isFavorite ? (
-                                <FaHeart className="cursor-pointer" size={22} fill="#d7447c" />
-                            ) : (
-                                <FaRegHeart className="cursor-pointer" size={22} />
-                            )}
-                        </div>
+                        {recipeMutation.isPending ? (
+                            <Loader className="animate-spin" />
+                        ) : (
+                            <div>
+                                {recipe.isFavorite ? (
+                                    <FaHeart
+                                        onClick={handleFavorite}
+                                        className="cursor-pointer"
+                                        size={22}
+                                        fill="#d7447c"
+                                    />
+                                ) : (
+                                    <FaRegHeart onClick={handleFavorite} className="cursor-pointer" size={22} />
+                                )}
+                            </div>
+                        )}
                     </div>
                     <CardDescription>
                         <div className="flex items-center">

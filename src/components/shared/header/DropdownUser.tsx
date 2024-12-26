@@ -49,7 +49,7 @@ export const DropdownUser = (): JSX.Element => {
                     <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokeDark">
                         <li>
                             <Link
-                                to="/dashboard/save-recipes"
+                                to="/dashboard/favorites-recipes"
                                 onClick={() => setDropdownOpen(false)}
                                 className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                             >

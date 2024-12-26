@@ -69,7 +69,7 @@ export const SettingsPage = (): JSX.Element => {
                                                             </FormLabel>
                                                             <FormControl>
                                                                 <Input
-                                                                    className="mb-2"
+                                                                    className="mb-2 dark:text-black-2"
                                                                     disabled={isPending}
                                                                     {...field}
                                                                 />
@@ -92,7 +92,7 @@ export const SettingsPage = (): JSX.Element => {
                                                             </FormLabel>
                                                             <FormControl>
                                                                 <Input
-                                                                    className="mb-2"
+                                                                    className="mb-2 dark:text-black-2"
                                                                     disabled={isPending}
                                                                     placeholder="p.ej. correo@correo.com"
                                                                     {...field}

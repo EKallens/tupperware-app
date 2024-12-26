@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import { Loader } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { updateTagSchema } from '@/schemas/tag.schema'
+import { toast } from 'sonner'
 
 type Props = {
     id?: string
@@ -21,6 +22,11 @@ export const TagForm = ({ id, defaultValues, onSubmit, disabled }: Props): JSX.E
     })
 
     const handleSubmit = (values: { name: string }) => {
+        if (values.name.includes('#')) {
+            return toast.error('El nombre de la etiqueta no puede contener el símbolo #', {
+                duration: 6000
+            })
+        }
         onSubmit(values)
     }
 

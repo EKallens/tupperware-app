@@ -1,12 +1,10 @@
 import { DropdownUser } from './DropdownUser'
 import { DarkModeSwitcher } from './DarkModeSwitcher'
+import { useOpenSidebar } from '@/hooks/use-open-sidebar'
 
-interface Props {
-    sidebarOpen: string | boolean | undefined
-    setSidebarOpen: (open: boolean) => void
-}
+export const Header = (): JSX.Element => {
+    const { isOpen, setOpen } = useOpenSidebar()
 
-export const Header = (props: Props): JSX.Element => {
     return (
         <header className="sticky top-0 z-60 flex w-full bg-white drop-shadow-1 dark:bg-boxDark dark:drop-shadow-none">
             <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -15,7 +13,7 @@ export const Header = (props: Props): JSX.Element => {
                         aria-controls="sidebar"
                         onClick={(e) => {
                             e.stopPropagation()
-                            props.setSidebarOpen(!props.sidebarOpen)
+                            setOpen(!isOpen)
                         }}
                         className="z-40 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokeDark dark:bg-boxDark lg:hidden"
                     >
@@ -23,29 +21,29 @@ export const Header = (props: Props): JSX.Element => {
                             <span className="du-block absolute right-0 h-full w-full">
                                 <span
                                     className={`relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
-                                        !props.sidebarOpen && '!w-full delay-300'
+                                        !isOpen && '!w-full delay-300'
                                     }`}
                                 ></span>
                                 <span
                                     className={`relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
-                                        !props.sidebarOpen && 'delay-400 !w-full'
+                                        !isOpen && 'delay-400 !w-full'
                                     }`}
                                 ></span>
                                 <span
                                     className={`relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
-                                        !props.sidebarOpen && '!w-full delay-500'
+                                        !isOpen && '!w-full delay-500'
                                     }`}
                                 ></span>
                             </span>
                             <span className="absolute right-0 h-full w-full rotate-45">
                                 <span
                                     className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${
-                                        !props.sidebarOpen && '!h-0 !delay-[0]'
+                                        !isOpen && '!h-0 !delay-[0]'
                                     }`}
                                 ></span>
                                 <span
                                     className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${
-                                        !props.sidebarOpen && '!h-0 !delay-200'
+                                        !isOpen && '!h-0 !delay-200'
                                     }`}
                                 ></span>
                             </span>

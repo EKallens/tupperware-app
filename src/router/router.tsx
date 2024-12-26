@@ -6,7 +6,7 @@ import { RegisterPage } from '@/pages/auth/RegisterPage'
 import { HomePage } from '@/pages/dashboard/HomePage'
 import { RecipeDetailsPage } from '@/pages/dashboard/RecipeDetailsPage'
 import { RecipesPage } from '@/pages/dashboard/RecipesPage'
-import { SaveRecipesPage } from '@/pages/dashboard/SaveRecipesPage'
+import { FavoritesRecipesPage } from '@/pages/dashboard/FavoritesRecipesPage'
 import { SettingsPage } from '@/pages/dashboard/SettingsPage'
 import { TagsPage } from '@/pages/dashboard/TagsPage'
 import { Root } from '@/Root'
@@ -51,7 +51,7 @@ const routes: RouteObject[] = [
                     { path: 'recipes/:id', element: <RecipeDetailsPage /> },
                     { path: 'tags', element: <TagsPage /> },
                     { path: 'settings', element: <SettingsPage /> },
-                    { path: 'save-recipes', element: <SaveRecipesPage /> }
+                    { path: 'favorites-recipes', element: <FavoritesRecipesPage /> }
                 ]
             }
         ]

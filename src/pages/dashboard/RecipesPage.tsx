@@ -82,8 +82,9 @@ const columns: ColumnDef<IRecipe>[] = [
 export const RecipesPage = (): JSX.Element => {
     const { user } = useAuthStore()
     const { data, isLoading } = useQuery({
-        queryKey: ['recipes'],
-        queryFn: () => user && getUserRecipes(user?.id)
+        queryKey: ['user-recipes'],
+        queryFn: () => user && getUserRecipes(user?.id),
+        refetchOnWindowFocus: false
     })
 
     return (

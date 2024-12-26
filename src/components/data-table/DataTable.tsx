@@ -53,7 +53,7 @@ export const DataTable = <TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-center py-4">
+            <div className="flex items-center py-4 z-10">
                 <Input
                     placeholder={`Filtrar...`}
                     value={(table.getColumn(`${filterKey}`)?.getFilterValue() as string) ?? ''}

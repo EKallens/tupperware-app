@@ -10,7 +10,8 @@ export const HomePage = (): JSX.Element => {
     const { user } = useAuthStore()
     const { data } = useQuery({
         queryKey: ['user-recipes'],
-        queryFn: () => user && getUserRecipes(user.id)
+        queryFn: () => user && getUserRecipes(user.id),
+        refetchOnWindowFocus: false
     })
 
     if (data?.length === 0) {

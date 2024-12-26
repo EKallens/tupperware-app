@@ -17,7 +17,8 @@ export const RecipeDetailsPage = (): JSX.Element => {
 
     const { data } = useQuery({
         queryKey: ['recipe', id],
-        queryFn: () => getRecipeById(id!)
+        queryFn: () => getRecipeById(id!),
+        refetchOnWindowFocus: false
     })
 
     if (!data) return <LoadingSpinner />
