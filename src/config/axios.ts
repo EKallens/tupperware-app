@@ -1,4 +1,3 @@
-import { checkAuth } from '@/lib/authApi'
 import axios from 'axios'
 
 const options = {
@@ -10,7 +9,6 @@ const API = axios.create(options)
 API.interceptors.response.use(
     (response) => response,
     async (error) => {
-        //await checkAuth()
         return Promise.reject(new Error(error.response.data.error || 'Algo salió mal'))
     }
 )
