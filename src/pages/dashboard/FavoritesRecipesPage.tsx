@@ -1,10 +1,12 @@
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { Recipe } from '@/components/recipe/Recipe'
 import { RecipeSkeleton } from '@/components/recipe/RecipeSkeleton'
+import { Button } from '@/components/ui/button'
 import { getUserRecipes } from '@/lib/recipesApi'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useQuery } from '@tanstack/react-query'
 import { IoArrowBackOutline } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 export const FavoritesRecipesPage = (): JSX.Element => {
@@ -18,8 +20,6 @@ export const FavoritesRecipesPage = (): JSX.Element => {
 
     const handleGoBack = () => navigate(-1)
 
-    console.log(isFetching)
-
     if (isFetching) {
         return (
             <div className="flex flex-col items-center justify-center gap-4">
@@ -32,6 +32,9 @@ export const FavoritesRecipesPage = (): JSX.Element => {
         return (
             <div className="flex flex-col items-center justify-center gap-4">
                 <p>No has agregado ninguna receta como favorita</p>
+                <Link to="/dashboard">
+                    <Button variant="primary">Ir a mis recetas</Button>
+                </Link>
             </div>
         )
     }
