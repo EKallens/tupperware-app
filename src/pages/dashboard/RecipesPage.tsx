@@ -6,12 +6,12 @@ import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { ColumnDef } from '@tanstack/react-table'
 import { IRecipe } from '@/interfaces/recipes/recipes.interface'
-import { transformDifficulty } from '../../utils/utils'
+import { getDifficultyLabel } from '@/utils/utils'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu'
-import { Edit, MoreHorizontal, Trash } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { RecipeActionColumn } from '@/components/actions/RecipeActionColumn'
 
 const columns: ColumnDef<IRecipe>[] = [
     {
@@ -40,7 +40,7 @@ const columns: ColumnDef<IRecipe>[] = [
     {
         accessorKey: 'difficulty',
         header: () => <div className="font-bold">Dificultad</div>,
-        cell: ({ row }) => <div>{transformDifficulty(row.getValue('difficulty'))}</div>
+        cell: ({ row }) => <div>{getDifficultyLabel(row.getValue('difficulty'))}</div>
     },
     {
         accessorKey: 'isFavorite',
@@ -56,25 +56,7 @@ const columns: ColumnDef<IRecipe>[] = [
         id: 'actions',
         enableHiding: false,
         cell: ({ row }) => {
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <MoreHorizontal />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white" align="end">
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
-                            <Edit className="size-4 mr-2" />
-                            Editar
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer" onClick={() => console.log(row.original.id)}>
-                            <Trash className="size-4 mr-2" />
-                            Eliminar
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
+            return <RecipeActionColumn id={row.original.id} />
         }
     }
 ]
@@ -92,9 +74,9 @@ export const RecipesPage = (): JSX.Element => {
             <div className="mx-auto max-w-170">
                 <Breadcrumb pageName="Recetas" />
                 <div className="flex">
-                    <Button variant="primary" className="ml-auto mb-4">
-                        Crear nueva receta
-                    </Button>
+                    <Link to="/dashboard/recipes/new" className="ml-auto mb-4">
+                        <Button variant="primary">Crear nueva receta</Button>
+                    </Link>
                 </div>
                 <div className="p-4 bg-white rounded-sm dark:bg-black">
                     {(data?.length === 0 && isLoading) || !data ? (

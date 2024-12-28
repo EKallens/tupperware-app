@@ -1,3 +1,4 @@
+import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { Recipe } from '@/components/recipe/Recipe'
 import { RecipeSkeleton } from '@/components/recipe/RecipeSkeleton'
@@ -43,12 +44,13 @@ export const FavoritesRecipesPage = (): JSX.Element => {
         <div className="m-4">
             <span
                 onClick={handleGoBack}
-                className="flex flex-row items-center mb-4 bg-black text-white p-2 w-20 rounded-md cursor-pointer shadow-md"
+                className="flex flex-row items-center mb-6 bg-black text-white p-2 w-20 rounded-md cursor-pointer shadow-md"
             >
                 <IoArrowBackOutline />
                 <span>Volver</span>
             </span>
-            <div className="flex flex-wrap gap-10 items-center justify-center">
+            <Breadcrumb pageName="Recetas Favoritas" />
+            <div className="flex flex-wrap gap-10 items-center mt-4">
                 {data ? data?.map((recipe) => <Recipe key={recipe.id} recipe={recipe} />) : <RecipeSkeleton />}
             </div>
         </div>

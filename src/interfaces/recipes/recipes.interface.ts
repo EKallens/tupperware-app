@@ -4,18 +4,33 @@ export interface IRecipe {
     id: string
     title: string
     notes: string
-    servings: number
+    servings: string
     tags: ITag[]
     ingredients: string
-    cookTime: number
+    cookTime: string
     preparation: string
-    difficulty: number
+    difficulty: string
     createdBy: string
     createdAt: string
     updatedAt: string
     isFavorite?: boolean | string
     img?: string
     description?: string
+}
+
+export interface IRecipeFormInputs {
+    title: string
+    notes: string
+    servings: string
+    tags: string[] | ITag[]
+    ingredients: string
+    cookTime: string
+    preparation: string
+    difficulty: string
+    createdBy: string
+    isFavorite?: boolean | string
+    description?: string
+    img?: string
 }
 
 export interface RecipeStore {

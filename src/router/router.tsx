@@ -16,6 +16,8 @@ import { useEffect } from 'react'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage'
 import { ResetPasswordPage } from '@/pages/auth/ResetPasswordPage'
+import { NewRecipePage } from '@/pages/dashboard/NewRecipePage'
+import { EditRecipePage } from '@/pages/dashboard/EditRecipePage'
 
 const ProtectedRoute = ({ children }: any) => {
     const { isAuthenticated, isCheckingAuth, checkAuth } = useAuthStore()
@@ -51,7 +53,9 @@ const routes: RouteObject[] = [
                     { path: 'recipes/:id', element: <RecipeDetailsPage /> },
                     { path: 'tags', element: <TagsPage /> },
                     { path: 'settings', element: <SettingsPage /> },
-                    { path: 'favorites-recipes', element: <FavoritesRecipesPage /> }
+                    { path: 'favorites-recipes', element: <FavoritesRecipesPage /> },
+                    { path: 'recipes/new', element: <NewRecipePage /> },
+                    { path: 'recipes/edit/:id', element: <EditRecipePage /> }
                 ]
             }
         ]

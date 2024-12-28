@@ -7,21 +7,23 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { updateTagSchema } from '@/schemas/tag.schema'
 import { toast } from 'sonner'
 
+type TagFormInputs = { name: string }
+
 type Props = {
     id?: string
-    defaultValues?: { name: string }
-    onSubmit: (values: { name: string }) => void
+    defaultValues?: TagFormInputs
+    onSubmit: (values: TagFormInputs) => void
     onDelete?: () => void
     disabled?: boolean
 }
 
 export const TagForm = ({ id, defaultValues, onSubmit, disabled }: Props): JSX.Element => {
-    const form = useForm<{ name: string }>({
+    const form = useForm<TagFormInputs>({
         resolver: zodResolver(updateTagSchema),
         defaultValues
     })
 
-    const handleSubmit = (values: { name: string }) => {
+    const handleSubmit = (values: TagFormInputs) => {
         if (values.name.includes('#')) {
             return toast.error('El nombre de la etiqueta no puede contener el símbolo #', {
                 duration: 6000

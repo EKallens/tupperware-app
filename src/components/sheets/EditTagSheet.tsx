@@ -19,10 +19,10 @@ export const EditTagSheet = () => {
     const updateTagMutation = useMutation({
         mutationFn: (value: string) => updateTag(id!, value),
         onSuccess: () => {
-            toast.success('Etiqueta actualizada correctamente')
-            onClose()
             queryClient.invalidateQueries({ queryKey: ['tag', id] })
             queryClient.invalidateQueries({ queryKey: ['tags'] })
+            toast.success('Etiqueta actualizada correctamente')
+            onClose()
         }
     })
 

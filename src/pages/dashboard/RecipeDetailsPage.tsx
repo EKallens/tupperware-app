@@ -4,11 +4,12 @@ import DefaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
 import { IoTimerOutline, IoArrowBackOutline, IoMedical } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { transformDifficulty } from '@/utils/utils'
+import { getDifficultyLabel } from '@/utils/utils'
 import dateAdapter from '@/config/date.adapter'
 import { useQuery } from '@tanstack/react-query'
 import { getRecipeById } from '@/lib/recipesApi'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
+import 'quill/dist/quill.snow.css'
 
 export const RecipeDetailsPage = (): JSX.Element => {
     const { id } = useParams()
@@ -56,17 +57,19 @@ export const RecipeDetailsPage = (): JSX.Element => {
                     <div className="order-3 flex-1 py-4 lg:order-1">
                         <p className="text-lg font-bold text-black dark:text-white mb-4">Preparación</p>
                         <ul className="lg:text-justify">
-                            <li>{data.preparation}</li>
+                            <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.preparation }}></li>
                         </ul>
                     </div>
                     <div className="order-2 px-0 flex-1 py-4 lg:px-6 lg:order-2">
                         <h2 className="text-lg font-bold text-black dark:text-white mb-4">Ingredientes</h2>
-                        <ul className="text-justify">{data.ingredients}</ul>
+                        <ul className="lg:text-justify">
+                            <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.ingredients }}></li>
+                        </ul>
                     </div>
                     <div className="order-1 px-0 w-auto lg:w-[400px] flex-1 py-4 lg:order-3">
                         <img
                             className="w-full rounded-md shadow-md"
-                            src={data.img ?? DefaultRecipeImage}
+                            src={data.img !== '' ? data.img : DefaultRecipeImage}
                             alt="recipe"
                         />
                         <div className="divide-y flex-col flex items-center justify-center mt-6 lg:flex-row lg:p-4 lg:divide-x lg:divide-blue-800 text-sm lg:text-blue-800 lg:border lg:border-blue-300 rounded-lg lg:bg-blue-50 lg:divide-y-0 dark:bg-gray-800 dark:text-white dark:border-white dark:divide-white">
@@ -80,7 +83,7 @@ export const RecipeDetailsPage = (): JSX.Element => {
                             </span>
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
                                 <IoMedical size={22} className="text-blue-800 dark:text-gray-100" />
-                                <p className="ml-1">{transformDifficulty(data.difficulty)}</p>
+                                <p className="ml-1">{getDifficultyLabel(data.difficulty)}</p>
                             </span>
                         </div>
                         <p className="mt-6">Notas: {data.notes}</p>

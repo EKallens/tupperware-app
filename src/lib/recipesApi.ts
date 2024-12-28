@@ -1,5 +1,5 @@
 import API from '@/config/axios'
-import { IRecipe } from '@/interfaces/recipes/recipes.interface'
+import { IRecipe, IRecipeFormInputs } from '@/interfaces/recipes/recipes.interface'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -14,7 +14,17 @@ export const getRecipeById = async (recipeId: string): Promise<IRecipe> => {
     return response.data
 }
 
-export const updateRecipe = async (recipeId: string, recipeInfo: Partial<IRecipe>): Promise<IRecipe> => {
+export const updateRecipe = async (recipeId: string, recipeInfo: IRecipeFormInputs): Promise<IRecipe> => {
     const response = await API.patch<IRecipe>(`${apiUrl}/api/recipes/${recipeId}`, recipeInfo)
+    return response.data
+}
+
+export const createRecipe = async (recipeInfo: IRecipeFormInputs): Promise<IRecipe> => {
+    const response = await API.post<IRecipe>(`${apiUrl}/api/recipes`, recipeInfo)
+    return response.data
+}
+
+export const deleteRecipe = async (recipeId: string): Promise<void> => {
+    const response = await API.delete<void>(`${apiUrl}/api/recipes/${recipeId}`)
     return response.data
 }
