@@ -97,6 +97,14 @@ export const Sidebar = () => {
                     </>
                 </nav>
             </div>
+            <footer className="flex flex-row justify-center items-end mt-auto mb-2 font-bold">
+                <span className="text-primary text-sm">
+                    Made by{' '}
+                    <a className="text-gray-400" href="https://github.com/EKallens" target="_blank">
+                        EKallens 🚀
+                    </a>
+                </span>
+            </footer>
         </aside>
     )
 }
