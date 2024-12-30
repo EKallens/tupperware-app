@@ -17,9 +17,7 @@ export const useConfirm = (title: string, message: string): [() => JSX.Element, 
             setPromise({ resolve })
         })
 
-    const handleClose = () => {
-        setPromise(null)
-    }
+    const handleClose = () => setPromise(null)
 
     const handleConfirm = () => {
         promise?.resolve(true)

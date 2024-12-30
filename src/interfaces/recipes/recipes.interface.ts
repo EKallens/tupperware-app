@@ -22,7 +22,7 @@ export interface IRecipeFormInputs {
     title: string
     notes: string
     servings: string
-    tags: string[] | ITag[]
+    tags: any[]
     ingredients: string
     cookTime: string
     preparation: string
@@ -31,9 +31,4 @@ export interface IRecipeFormInputs {
     isFavorite?: boolean | string
     description?: string
     img?: string
-}
-
-export interface RecipeStore {
-    recipes: IRecipe[]
-    setRecipes: (recipes: IRecipe[]) => void
 }

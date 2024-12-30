@@ -3,4 +3,5 @@ export interface User {
     name: string
     email: string
     isVerified?: boolean
+    img?: string
 }

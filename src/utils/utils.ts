@@ -9,3 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getDifficultyLabel(difficulty: string): string {
     return DifficultyLabels[difficulty as Difficulty] || difficulty
 }
+
+export function createTagOptions(tags: { id: string; name: string }[]) {
+    return tags.map((tag) => ({ label: tag.name, value: tag.id }))
+}

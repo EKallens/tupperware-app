@@ -12,7 +12,7 @@ export const NewRecipePage = () => {
         title: '',
         notes: '',
         servings: '',
-        tags: ['676ebdd22a0e9dea41a95906'],
+        tags: [],
         ingredients: '',
         cookTime: '',
         preparation: '',
@@ -45,7 +45,7 @@ export const NewRecipePage = () => {
                 <IoArrowBackOutline />
                 <span>Volver</span>
             </span>
-            <div className="z-20 w-full bg-white p-6 rounded-lg">
+            <div className="z-20 w-full bg-white p-6 rounded-lg dark:bg-primaryDark">
                 <RecipeForm defaultValues={defaultValues} onSubmit={onSubmit} disabled={recipeMutation.isPending} />
             </div>
         </>

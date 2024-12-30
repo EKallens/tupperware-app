@@ -10,9 +10,21 @@ type Props = {
     placeholder?: string
     className?: string
     isError?: boolean
+    isSearchable?: boolean
+    isClearable?: boolean
+    isMulti?: boolean
 }
 
-export const Select = ({ onChange, options = [], value, disabled, placeholder, isError }: Props) => {
+export const Select = ({
+    onChange,
+    options = [],
+    value,
+    disabled,
+    placeholder,
+    isError,
+    isSearchable = false,
+    isClearable = false
+}: Props) => {
     const onSelect = (option: SingleValue<{ label: string; value: string }>) => {
         onChange(option?.value)
     }
@@ -34,8 +46,8 @@ export const Select = ({ onChange, options = [], value, disabled, placeholder, i
                     }
                 })
             }}
-            isSearchable={false}
-            isClearable={false}
+            isSearchable={isSearchable}
+            isClearable={isClearable}
             value={formattedValue}
             onChange={onSelect}
             options={options}

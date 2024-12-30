@@ -1,6 +1,6 @@
 import { BiSolidDish } from 'react-icons/bi'
 import { MdOutlineSoupKitchen } from 'react-icons/md'
-import DefaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
+import defaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
 import { IoTimerOutline, IoArrowBackOutline, IoMedical } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getRecipeById } from '@/lib/recipesApi'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import 'quill/dist/quill.snow.css'
+import { Button } from '@/components/ui/button'
 
 export const RecipeDetailsPage = (): JSX.Element => {
     const { id } = useParams()
@@ -28,7 +29,7 @@ export const RecipeDetailsPage = (): JSX.Element => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <span
                 onClick={handleGoBack}
-                className="flex flex-row items-center mb-4 bg-black text-white p-2 w-20 rounded-md cursor-pointer shadow-md"
+                className="flex flex-row items-center mb-4 bg-black text-white dark:bg-primary p-2 w-20 rounded-md cursor-pointer shadow-md"
             >
                 <IoArrowBackOutline />
                 <span>Volver</span>
@@ -39,6 +40,12 @@ export const RecipeDetailsPage = (): JSX.Element => {
                     <div className="flex flex-row items-center">
                         <BiSolidDish size={26} className="text-black font-semibold mr-2 dark:text-white" />
                         <h2 className="text-title-md2 font-semibold text-black dark:text-white">{data.title}</h2>
+                        <Button
+                            variant="primary"
+                            className="ml-6 pt-0 pb-0 pl-2 pr-2 w-auto rounded-md cursor-pointer shadow-md"
+                        >
+                            Editar Receta
+                        </Button>
                     </div>
                     <span className="mt-3 shadow-sm text-sm font-bold border p-2 rounded-md bg-gray-200 lg:mt-0 dark:text-black">
                         Fecha de creación:{' '}
@@ -69,7 +76,7 @@ export const RecipeDetailsPage = (): JSX.Element => {
                     <div className="order-1 px-0 w-auto lg:w-[400px] flex-1 py-4 lg:order-3">
                         <img
                             className="w-full rounded-md shadow-md"
-                            src={data.img !== '' ? data.img : DefaultRecipeImage}
+                            src={data.img ? data.img : defaultRecipeImage}
                             alt="recipe"
                         />
                         <div className="divide-y flex-col flex items-center justify-center mt-6 lg:flex-row lg:p-4 lg:divide-x lg:divide-blue-800 text-sm lg:text-blue-800 lg:border lg:border-blue-300 rounded-lg lg:bg-blue-50 lg:divide-y-0 dark:bg-gray-800 dark:text-white dark:border-white dark:divide-white">

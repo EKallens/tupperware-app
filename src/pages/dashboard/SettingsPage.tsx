@@ -1,5 +1,5 @@
 import { Breadcrumb } from '@/components/breadcrumb/Breadcrumb'
-import userThree from '@/assets/images/user/account-avatar-profile-user.svg'
+import defaultUserImage from '@/assets/images/user/default-user.svg'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
@@ -137,7 +137,7 @@ export const SettingsPage = (): JSX.Element => {
                                 >
                                     <div className="mb-4 flex items-center gap-3">
                                         <div className="h-14 w-14 rounded-full">
-                                            <img src={userThree} alt="User" />
+                                            <img src={user?.img ?? defaultUserImage} alt="User" />
                                         </div>
                                         <div>
                                             <span className="mb-1.5 text-black dark:text-white">Edita tu foto</span>

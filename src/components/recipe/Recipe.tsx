@@ -17,7 +17,7 @@ interface RecipeProps {
 }
 
 export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
-    const [isFavorite, setIsFavorite] = useState<any>(recipe.isFavorite)
+    const [isFavorite, setIsFavorite] = useState<IRecipe['isFavorite']>(recipe.isFavorite)
     const { pathname } = useLocation()
     const queryClient = useQueryClient()
 
@@ -25,8 +25,8 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
         mutationFn: () =>
             updateRecipe(recipe.id, {
                 ...recipe,
-                tags: recipe.tags.map((tag) => tag.id),
-                isFavorite: isFavorite
+                isFavorite: isFavorite,
+                tags: recipe.tags.map((tag) => tag.id)
             }),
         onSuccess: (data) => {
             queryClient.invalidateQueries({
@@ -37,7 +37,7 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
         },
         onError: () => {
             toast.error('Error al guardar la receta como favorita')
-            setIsFavorite(recipe.isFavorite)
+            setIsFavorite(recipe.isFavorite!)
         }
     })
 
@@ -55,7 +55,7 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
             key={recipe.id}
         >
             <Toaster />
-            <Card className="bg-white shadow-md w-[350px] dark:bg-primaryDark dark:border-none">
+            <Card className="bg-white shadow-md w-[300px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle>{recipe.title}</CardTitle>
@@ -111,12 +111,16 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
                         </Button>
                     </Link>
                 </CardContent>
-                <CardFooter className="break-all">
-                    {recipe.tags.map((tag) => (
-                        <span key={tag.id} className="mr-1 font-bold text-sm">
-                            #{tag.name}{' '}
-                        </span>
-                    ))}
+                <CardFooter className="h-auto">
+                    {recipe.tags.length > 3 ? (
+                        <span className="mr-1 font-bold text-sm">#{recipe.tags[0].name}...</span>
+                    ) : (
+                        recipe.tags.map((tag) => (
+                            <span key={tag.id} className="mr-1 font-bold text-sm">
+                                #{tag.name}{' '}
+                            </span>
+                        ))
+                    )}
                 </CardFooter>
             </Card>
         </motion.div>

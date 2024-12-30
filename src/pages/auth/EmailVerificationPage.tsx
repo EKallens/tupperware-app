@@ -10,7 +10,7 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 export const EmailVerificationPage = () => {
     const [code, setCode] = useState(['', '', '', '', '', ''])
-    const inputRefs = useRef<any[]>([])
+    const inputRefs = useRef<HTMLInputElement[]>([])
     const navigate = useNavigate()
     const { setIsAuthenticated } = useAuthStore()
 
@@ -29,7 +29,6 @@ export const EmailVerificationPage = () => {
     const handleChange = (index: number, value: string) => {
         const newCode = [...code]
 
-        // Handle pasted content
         if (value.length > 1) {
             const pastedCode = value.slice(0, 6).split('')
             for (let i = 0; i < 6; i++) {
@@ -37,7 +36,6 @@ export const EmailVerificationPage = () => {
             }
             setCode(newCode)
 
-            // Focus on the last non-empty input or the first empty one
             const lastFilledIndex = newCode.findLastIndex((digit) => digit !== '')
             const focusIndex = lastFilledIndex < 5 ? lastFilledIndex + 1 : 5
             inputRefs.current[focusIndex].focus()
@@ -45,7 +43,6 @@ export const EmailVerificationPage = () => {
             newCode[index] = value
             setCode(newCode)
 
-            // Move focus to the next input field if value is entered
             if (value && index < 5) {
                 inputRefs.current[index + 1].focus()
             }
@@ -68,7 +65,6 @@ export const EmailVerificationPage = () => {
         }
     }
 
-    // Auto submit when all fields are filled
     useEffect(() => {
         if (code.every((digit) => digit !== '')) {
             handleSubmit(new Event('submit'))
@@ -92,7 +88,7 @@ export const EmailVerificationPage = () => {
                         {code.map((digit, index) => (
                             <input
                                 key={index}
-                                ref={(el) => (inputRefs.current[index] = el)}
+                                ref={(el: HTMLInputElement) => (inputRefs.current[index] = el)}
                                 type="text"
                                 maxLength={6}
                                 value={digit}

@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -11,25 +11,35 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { Select } from '../select/Select'
 import { difficultyOptions } from '@/utils/constants'
 import { FormError } from '../form-error/FormError'
+import { useQuery } from '@tanstack/react-query'
+import { getUserTags } from '@/lib/tagsApi'
+import { MultiSelect } from '../select/MultiSelect'
+import { createTagOptions } from '@/utils/utils'
 
 export type RecipeFormInputs = Omit<IRecipe, 'id' | 'createdAt' | 'updatedAt'>
 
 type Props = {
     id?: string
     defaultValues?: IRecipeFormInputs
-    onSubmit: (values: IRecipeFormInputs) => void
+    onSubmit: (values: any) => void
     disabled?: boolean
 }
 
 export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => {
     const { user } = useAuthStore()
+    const { data } = useQuery({
+        queryKey: ['tags'],
+        queryFn: () => getUserTags(user!.id)
+    })
     const form = useForm<IRecipeFormInputs>({
         resolver: zodResolver(recipeSchema),
-        defaultValues
+        defaultValues: { ...defaultValues, tags: createTagOptions(defaultValues?.tags || []) }
     })
 
     const handleSubmit = (values: IRecipeFormInputs) => {
-        onSubmit({ ...values, createdBy: user!.id })
+        const tagIds = form.getValues('tags').map((tag) => tag.id || tag.value)
+        const recipe = { ...values, tags: tagIds, createdBy: user!.id }
+        onSubmit(recipe)
     }
 
     return (
@@ -51,6 +61,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     {form.formState.errors.title?.message ? (
                         <FormError message={form.formState.errors.title.message} />
                     ) : null}
+
                     <FormField
                         name="notes"
                         control={form.control}
@@ -61,7 +72,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                     <Input
                                         className="mb-2"
                                         disabled={disabled}
-                                        placeholder="p.ej. queso, tomate..."
+                                        placeholder="Notas adicionales de la receta"
                                         {...field}
                                     />
                                 </FormControl>
@@ -71,17 +82,18 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     {form.formState.errors.notes?.message ? (
                         <FormError message={form.formState.errors.notes.message} />
                     ) : null}
+
                     <FormField
                         name="description"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Descripción</FormLabel>
+                                <FormLabel>Descripción (opcional)</FormLabel>
                                 <FormControl>
                                     <Input
                                         className="mb-2"
                                         disabled={disabled}
-                                        placeholder="p.ej. usar un buen horno..."
+                                        placeholder="Descripción de la receta..."
                                         {...field}
                                     />
                                 </FormControl>
@@ -91,12 +103,13 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     {form.formState.errors.description?.message ? (
                         <FormError message={form.formState.errors.description.message} />
                     ) : null}
+
                     <div className="flex flex-row gap-4">
                         <FormField
                             name="servings"
                             control={form.control}
                             render={({ field }) => (
-                                <FormItem className="w-30">
+                                <FormItem className="w-full md:w-70">
                                     <FormLabel>Porciones</FormLabel>
                                     <FormControl>
                                         <Input
@@ -116,13 +129,15 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                             name="cookTime"
                             control={form.control}
                             render={({ field }) => (
-                                <FormItem className="w-30">
-                                    <FormLabel>Tiempo</FormLabel>
+                                <FormItem className="w-full md:w-70">
+                                    <FormLabel>Tiempo (En minutos)</FormLabel>
                                     <FormControl>
                                         <Input
                                             type="number"
                                             className={`mb-2 ${
-                                                form.formState.errors.cookTime ? 'border-rose-600' : ''
+                                                form.formState.errors.cookTime
+                                                    ? 'border-rose-600 focus:border-rose-600'
+                                                    : ''
                                             }`}
                                             disabled={disabled}
                                             placeholder="p.ej. 120"
@@ -169,6 +184,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     {form.formState.errors.ingredients?.message ? (
                         <FormError message={form.formState.errors.ingredients.message} />
                     ) : null}
+
                     <FormField
                         name="preparation"
                         control={form.control}
@@ -186,25 +202,35 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     {form.formState.errors.preparation?.message ? (
                         <FormError message={form.formState.errors.preparation.message} />
                     ) : null}
-                    <FormField
+
+                    <Controller
                         name="tags"
                         control={form.control}
-                        render={() => (
-                            <FormItem className="w-auto mt-6">
-                                <FormLabel>Tags</FormLabel>
-                                <FormControl></FormControl>
-                            </FormItem>
+                        render={({ field }: any) => (
+                            <>
+                                <FormItem className="w-auto mt-6">
+                                    <FormLabel>Tags</FormLabel>
+                                    <MultiSelect
+                                        defaultValues={field.value || []}
+                                        onChange={(selectedTags) => field.onChange(selectedTags)}
+                                        options={createTagOptions(data || [])}
+                                        className="basic-multi-select text-sm"
+                                        placeholder="Selecciona los tags..."
+                                    />
+                                </FormItem>
+                            </>
                         )}
                     />
                     {form.formState.errors.tags?.message ? (
                         <FormError message={form.formState.errors.tags.message} />
                     ) : null}
+
                     <FormField
                         name="img"
                         control={form.control}
                         render={({ field }) => (
                             <FormItem className="w-[350px] mt-6">
-                                <FormLabel>Imagen</FormLabel>
+                                <FormLabel>Imagen (opcional)</FormLabel>
                                 <FormControl>
                                     <Input type="file" className="mb-2" disabled={disabled} {...field} />
                                 </FormControl>

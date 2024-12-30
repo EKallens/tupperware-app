@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaRegHeart } from 'react-icons/fa'
 import { ClickOutside } from '@/components/click-outside/ClickOutside'
-import UserOne from '@/assets/images/user/account-avatar-profile-user.svg'
+import defaultUserImage from '@/assets/images/user/default-user.svg'
 import { IoMdSettings } from 'react-icons/io'
 import { BiLogOut } from 'react-icons/bi'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -24,9 +24,7 @@ export const DropdownUser = (): JSX.Element => {
         }
     })
 
-    const handleLogout = () => {
-        mutate()
-    }
+    const handleLogout = () => mutate()
 
     return (
         <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -37,7 +35,7 @@ export const DropdownUser = (): JSX.Element => {
                 </span>
 
                 <span className="h-12 w-12 rounded-full">
-                    <img src={UserOne} alt="User" />
+                    <img src={user?.img ?? defaultUserImage} alt="User" />
                 </span>
                 <IoIosArrowDown size={20} />
             </div>
