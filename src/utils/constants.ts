@@ -1,4 +1,4 @@
-export const appName = 'Recipes App'
+export const appName = 'Tupperware'
 
 export enum Difficulty {
     Easy = '1',
