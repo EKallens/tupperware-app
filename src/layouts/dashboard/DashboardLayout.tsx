@@ -3,6 +3,7 @@ import { Header } from '@/components/shared/header/Header'
 import { Sidebar } from '@/components/shared/sidebar/Sidebar'
 import { EditTagSheet } from '@/components/sheets/EditTagSheet'
 import { CreateTagSheet } from '@/components/sheets/CreateTagSheet'
+import { Toaster } from 'sonner'
 
 export const DashboardLayout = (): JSX.Element => {
     return (
@@ -15,6 +16,7 @@ export const DashboardLayout = (): JSX.Element => {
                     <Header />
                     <main>
                         <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                            <Toaster />
                             <Outlet />
                         </div>
                     </main>

@@ -5,7 +5,7 @@ import { deleteRecipe } from '@/lib/recipesApi'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Edit, MoreHorizontal } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 
 interface ActionProps {
     id: string
@@ -34,7 +34,6 @@ export const RecipeActionColumn = ({ id }: ActionProps) => {
 
     return (
         <DropdownMenu>
-            <Toaster />
             <ConfirmDialog />
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="size-8 p-0">

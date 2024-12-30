@@ -5,7 +5,7 @@ import { Loader } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
 import { verifyEmail } from '@/lib/authApi'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 import { useAuthStore } from '@/store/useAuthStore'
 
 export const EmailVerificationPage = () => {
@@ -73,7 +73,6 @@ export const EmailVerificationPage = () => {
 
     return (
         <div className="bg-black max-w-md w-full backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden">
-            <Toaster />
             <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}

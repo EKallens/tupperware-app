@@ -2,7 +2,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createTag } from '@/lib/tagsApi'
 import { TagForm } from '../forms/TagForm'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 import { useNewTag } from '@/hooks/use-new-tag'
 import { useAuthStore } from '@/store/useAuthStore'
 
@@ -26,7 +26,6 @@ export const CreateTagSheet = () => {
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-            <Toaster />
             <SheetContent className="bg-white space-y-4">
                 <SheetHeader>
                     <SheetTitle>Crear Etiqueta</SheetTitle>

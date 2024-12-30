@@ -10,7 +10,7 @@ import { motion } from 'framer-motion'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateRecipe } from '@/lib/recipesApi'
 import { useState } from 'react'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 
 interface RecipeProps {
     recipe: IRecipe
@@ -54,7 +54,6 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
             className="max-w-md w-full overflow-hidden"
             key={recipe.id}
         >
-            <Toaster />
             <Card className="bg-white shadow-md w-[300px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">

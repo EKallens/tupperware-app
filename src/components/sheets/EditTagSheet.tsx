@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getTagById, updateTag } from '@/lib/tagsApi'
 import { useOpenTag } from '@/hooks/use-open-tag'
 import { TagForm } from '../forms/TagForm'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 
 export const EditTagSheet = () => {
     const { isOpen, onClose, id } = useOpenTag()
@@ -32,7 +32,6 @@ export const EditTagSheet = () => {
 
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-            <Toaster />
             <SheetContent className="bg-white space-y-4">
                 <SheetHeader>
                     <SheetTitle>Editar Etiqueta</SheetTitle>

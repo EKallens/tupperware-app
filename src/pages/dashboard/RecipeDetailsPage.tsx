@@ -60,7 +60,7 @@ export const RecipeDetailsPage = (): JSX.Element => {
 
                 <hr className="my-6 h-0.5 bg-neutral-100 dark:bg-white/10" />
 
-                <div className="flex-row mt-4 lg:mt-3 lg:flex gap-8">
+                <div className="flex-row mt-4 xl:mt-3 xl:flex xl:gap-8">
                     <div className="order-3 flex-1 py-4 lg:order-1">
                         <p className="text-lg font-bold text-black dark:text-white mb-4">Preparación</p>
                         <ul className="lg:text-justify">
@@ -73,7 +73,7 @@ export const RecipeDetailsPage = (): JSX.Element => {
                             <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.ingredients }}></li>
                         </ul>
                     </div>
-                    <div className="order-1 px-0 w-auto lg:w-[400px] flex-1 py-4 lg:order-3">
+                    <div className="order-1 px-0 w-auto flex-1 py-4 lg:order-3">
                         <img
                             className="w-full rounded-md shadow-md"
                             src={data.img ? data.img : defaultRecipeImage}

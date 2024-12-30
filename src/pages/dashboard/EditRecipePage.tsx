@@ -20,9 +20,9 @@ export const EditRecipePage = () => {
         mutationFn: (data: IRecipeFormInputs) => updateRecipe(id!, data),
         onSuccess: () => {
             toast.success('Receta actualizada correctamente')
-            navigate('/dashboard/recipes')
             queryClient.invalidateQueries({ queryKey: ['user-recipes'] })
             queryClient.invalidateQueries({ queryKey: ['recipe', id] })
+            navigate('/dashboard/recipes')
         },
         onError: () => {
             toast.error('Error al actualizar la receta', { position: 'top-right' })
