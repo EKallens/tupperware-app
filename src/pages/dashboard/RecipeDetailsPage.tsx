@@ -11,6 +11,8 @@ import { getRecipeById } from '@/lib/recipesApi'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import 'quill/dist/quill.snow.css'
 import { Button } from '@/components/ui/button'
+import { Edit } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export const RecipeDetailsPage = (): JSX.Element => {
     const { id } = useParams()
@@ -40,12 +42,13 @@ export const RecipeDetailsPage = (): JSX.Element => {
                     <div className="flex flex-row items-center">
                         <BiSolidDish size={26} className="text-black font-semibold mr-2 dark:text-white" />
                         <h2 className="text-title-md2 font-semibold text-black dark:text-white">{data.title}</h2>
-                        <Button
-                            variant="primary"
-                            className="ml-6 pt-0 pb-0 pl-2 pr-2 w-auto rounded-md cursor-pointer shadow-md"
+                        <Link
+                            to={`/dashboard/recipes/edit/${id}`}
+                            className="flex flex-row items-center cursor-pointer"
                         >
-                            Editar Receta
-                        </Button>
+                            <Edit className="size-4 ml-4 mr-2" />
+                            <span className="text-sm">Editar</span>
+                        </Link>
                     </div>
                     <span className="mt-3 shadow-sm text-sm font-bold border p-2 rounded-md bg-gray-200 lg:mt-0 dark:text-black">
                         Fecha de creación:{' '}
