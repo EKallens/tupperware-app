@@ -1,50 +1,101 @@
-# React + TypeScript + Vite
+# 🍲 Tupperware
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Tupperware** es una aplicación web diseñada para gestionar recetas de cocina de forma sencilla y accesible. Los usuarios pueden crear, visualizar y marcar como favoritas sus recetas. La aplicación cuenta con una interfaz de usuario amigable desarrollada en React y un backend en Node.js con ExpressJs que utiliza MongoDB para la persistencia de datos.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **Gestión de Recetas**: Crear, editar, eliminar y visualizar recetas.
+-   **Favoritos**: Los usuarios pueden marcar sus recetas favoritas para acceder a ellas rápidamente.
+-   **Etiquetas (Tags)**: Clasifica las recetas por etiquetas personalizadas.
+-   **Autenticación**: Sistema seguro de registro e inicio de sesión.
+-   **Fotos de Recetas**: Opción de agregar una foto para cada receta.
 
-## Expanding the ESLint configuration
+## 🛠️ Stack Tecnológico
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-   **React** con **Vite**: Interfaz de usuario rápida y moderna.
+-   **TypeScript**: Tipado estático para facilitar el mantenimiento y escalabilidad.
+-   **CSS con TailwindCSS**: Diseño rápido y personalizado para una buena experiencia de usuario.
+-   **Shadcn**: Librería de componentes
+-   **Zustand**: Para la gestión del estado global
+-   **Zod**: Validación de inputs
 
-- Configure the top-level `parserOptions` property like this:
+### Despliegue
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+-   WIP
+
+## 📁 Estructura del Proyecto
+
+```plaintext
+recipes-app-client/
+│
+├── public/
+│   └── favicon.ico
+│
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── config/
+│   ├── hooks/
+│   ├── interfaces/
+│   ├── layouts/
+│   ├── lib/
+│   ├── pages/
+│   ├── router/
+│   ├── schemas/
+│   ├── store/
+│   ├── utils/
+│   ├── index.css
+│   ├── main.tsx
+│   └── Root.tsx
+│
+└── README.md
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🚀 Instalación y Configuración
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Requisitos Previos
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+-   **Node.js** (v18 o superior)
+
+### Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto para almacenar tus variables de entorno:
+
+```plaintext
+REACT_APP_API_URL=http://localhost:5000
 ```
+
+### Instalación
+
+1. Clona el repositorio:
+
+    ```bash
+    git clone https://github.com/EKallens/recipes-app-client.git
+    cd recipes-app-client
+    ```
+
+2. Instala las dependencias:
+
+    ```bash
+    $ npm install
+    ```
+
+### Ejecución en Desarrollo
+
+1. Inicia el servidor frontend:
+
+    ```bash
+    $ npm run dev
+    ```
+
+2. Accede a la aplicación en el navegador:
+
+    - [http://localhost:5173](http://localhost:5173)
+
+## 🎨 Capturas de Pantalla
+
+Work in progress
+
+## 🤝 Contribuciones
+
+¡Las contribuciones son bienvenidas! Si deseas mejorar esta aplicación, siéntete libre de abrir un `pull request` o de reportar problemas en el apartado de `issues`.
