@@ -70,8 +70,8 @@ REACT_APP_API_URL=http://localhost:5000
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/EKallens/recipes-app-client.git
-    cd recipes-app-client
+    $ git clone https://github.com/EKallens/recipes-app-client.git
+    $ cd recipes-app-client
     ```
 
 2. Instala las dependencias:
@@ -94,7 +94,8 @@ REACT_APP_API_URL=http://localhost:5000
 
 ## 🎨 Capturas de Pantalla
 
-Work in progress
+![Captura de pantalla 2025-01-01 a la(s) 10 20 16 p m](https://github.com/user-attachments/assets/51cc7fd6-d803-4650-b3cb-722282a8bfdb)
+
 
 ## 🤝 Contribuciones
 
