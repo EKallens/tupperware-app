@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
-import { useColorMode } from '@/hooks/use-color-mode'
 
 type QuillEditorProps = {
     value: string
@@ -9,7 +8,6 @@ type QuillEditorProps = {
 }
 
 export const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
-    const [colorMode] = useColorMode()
     const editorRef = useRef<HTMLDivElement | null>(null)
     const quillRef = useRef<Quill | null>(null)
 
@@ -31,7 +29,7 @@ export const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => 
                 }
             })
         }
-    }, [value, onChange, colorMode])
+    }, [value, onChange])
 
     useEffect(() => {
         if (quillRef.current) {
@@ -42,5 +40,5 @@ export const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => 
         }
     }, [value])
 
-    return <div ref={editorRef} className="bg-white border p-2" />
+    return <div ref={editorRef} className="border p-2 bg-white text-black" />
 }
