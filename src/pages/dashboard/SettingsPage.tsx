@@ -56,8 +56,6 @@ export const SettingsPage = (): JSX.Element => {
         }
     }
 
-    //const onImageSubmit = (data: { file?: File }) => data.file && userImageMutation.mutate(data.file)
-
     const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             userImageMutation.mutate(e.target.files[0])

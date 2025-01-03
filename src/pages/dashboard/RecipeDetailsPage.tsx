@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query'
 import { getRecipeById } from '@/lib/recipesApi'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import 'quill/dist/quill.snow.css'
-import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
 import { Link } from 'react-router-dom'
 

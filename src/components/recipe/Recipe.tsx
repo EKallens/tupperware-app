@@ -54,7 +54,7 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
             className="max-w-md w-full overflow-hidden"
             key={recipe.id}
         >
-            <Card className="bg-white shadow-md w-[300px] dark:bg-primaryDark dark:border-none">
+            <Card className="bg-white shadow-sm w-[300px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle>{recipe.title}</CardTitle>
@@ -81,7 +81,11 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <img src={recipe.img || defaultRecipeImage} alt="recipe" />
+                    <img
+                        className="w-[250px] h-[150px] rounded-sm"
+                        src={recipe.img || defaultRecipeImage}
+                        alt="recipe"
+                    />
                     <div className="flex flex-col gap-4 mt-4">
                         <div className="flex flex-wrap items-center">
                             <span className="text-sm">Dificultad:</span>

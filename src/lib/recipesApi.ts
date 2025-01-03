@@ -28,3 +28,10 @@ export const deleteRecipe = async (recipeId: string): Promise<void> => {
     const response = await API.delete<void>(`${apiUrl}/api/recipes/${recipeId}`)
     return response.data
 }
+
+export const uploadRecipeImage = async (image: File): Promise<string> => {
+    const formData = new FormData()
+    formData.append('file', image)
+    const response = await API.post<{ filePath: string }>(`${apiUrl}/api/recipes/image`, formData)
+    return response.data.filePath
+}

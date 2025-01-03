@@ -40,7 +40,7 @@ export const EditRecipePage = () => {
         difficulty: data?.difficulty || '',
         description: data?.description || '',
         createdBy: data?.createdBy || '',
-        img: ''
+        img: data?.img || ''
     }
 
     const onSubmit = (values: IRecipeFormInputs) => {

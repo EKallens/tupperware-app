@@ -33,11 +33,11 @@ export const RecipeSkeleton = (): JSX.Element => {
                             <div className="h-48 w-full bg-gray-300 dark:bg-gray-700 rounded animate-pulse"></div>
                             <div className="flex flex-col gap-4 mt-4">
                                 <div className="flex flex-wrap items-center">
-                                    <span className="text-sm">Dificultad:</span>
+                                    <div className="h-4 w-20 bg-gray-300 dark:bg-gray-700 rounded ml-1 animate-pulse"></div>
                                     <div className="h-4 w-20 bg-gray-300 dark:bg-gray-700 rounded ml-1 animate-pulse"></div>
                                 </div>
                                 <div className="flex flex-wrap items-center">
-                                    <span className="text-sm">Porciones:</span>
+                                    <div className="h-4 w-12 bg-gray-300 dark:bg-gray-700 rounded ml-1 animate-pulse"></div>
                                     <div className="h-4 w-12 bg-gray-300 dark:bg-gray-700 rounded ml-1 animate-pulse"></div>
                                 </div>
                             </div>

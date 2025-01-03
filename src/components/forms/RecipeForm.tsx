@@ -11,10 +11,13 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { Select } from '../select/Select'
 import { difficultyOptions } from '@/utils/constants'
 import { FormError } from '../form-error/FormError'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { getUserTags } from '@/lib/tagsApi'
 import { MultiSelect } from '../select/MultiSelect'
 import { createTagOptions } from '@/utils/utils'
+import { useState } from 'react'
+import { uploadRecipeImage } from '@/lib/recipesApi'
+import { toast } from 'sonner'
 
 export type RecipeFormInputs = Omit<IRecipe, 'id' | 'createdAt' | 'updatedAt'>
 
@@ -26,26 +29,52 @@ type Props = {
 }
 
 export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => {
+    const [imageFile, setImageFile] = useState<File | null>(null)
+    const [image, setImage] = useState<string>(defaultValues?.img || '')
     const { user } = useAuthStore()
+
     const { data } = useQuery({
         queryKey: ['tags'],
         queryFn: () => getUserTags(user!.id)
     })
+
+    const recipeImageMutation = useMutation({
+        mutationFn: (file: File) => uploadRecipeImage(file),
+        onError: () => {
+            toast.error('Error al subir la imagen')
+        }
+    })
+
     const form = useForm<IRecipeFormInputs>({
         resolver: zodResolver(recipeSchema),
         defaultValues: { ...defaultValues, tags: createTagOptions(defaultValues?.tags || []) }
     })
 
-    const handleSubmit = (values: IRecipeFormInputs) => {
+    const onRecipeImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files![0]
+        setImageFile(file)
+    }
+
+    const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e?.preventDefault()
+        setImage('')
+        defaultValues!.img = ''
+    }
+
+    const handleSubmit = async (values: IRecipeFormInputs) => {
+        let recipe = {}
+        let imageUrl = ''
+
+        if (imageFile) imageUrl = await recipeImageMutation.mutateAsync(imageFile)
         const tagIds = form.getValues('tags').map((tag) => tag.id || tag.value)
-        const recipe = { ...values, tags: tagIds, createdBy: user!.id }
+        recipe = { ...values, tags: tagIds, createdBy: user!.id, img: imageUrl }
         onSubmit(recipe)
     }
 
     return (
         <>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 pt-4">
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5 pt-5">
                     <FormField
                         name="title"
                         control={form.control}
@@ -53,7 +82,11 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                             <FormItem>
                                 <FormLabel>Título</FormLabel>
                                 <FormControl className="w-full">
-                                    <Input className="mb-2" disabled={disabled} {...field} />
+                                    <Input
+                                        className="mb-2"
+                                        disabled={disabled || recipeImageMutation.isPending}
+                                        {...field}
+                                    />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -71,7 +104,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                 <FormControl>
                                     <Input
                                         className="mb-2"
-                                        disabled={disabled}
+                                        disabled={disabled || recipeImageMutation.isPending}
                                         placeholder="Notas adicionales de la receta"
                                         {...field}
                                     />
@@ -92,7 +125,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                 <FormControl>
                                     <Input
                                         className="mb-2"
-                                        disabled={disabled}
+                                        disabled={disabled || recipeImageMutation.isPending}
                                         placeholder="Descripción de la receta..."
                                         {...field}
                                     />
@@ -117,7 +150,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                             className={`mb-2 ${
                                                 form.formState.errors.servings ? 'border-rose-600' : ''
                                             }`}
-                                            disabled={disabled}
+                                            disabled={disabled || recipeImageMutation.isPending}
                                             placeholder="p.ej. 4"
                                             {...field}
                                         />
@@ -139,7 +172,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                                     ? 'border-rose-600 focus:border-rose-600'
                                                     : ''
                                             }`}
-                                            disabled={disabled}
+                                            disabled={disabled || recipeImageMutation.isPending}
                                             placeholder="p.ej. 120"
                                             {...field}
                                         />
@@ -159,7 +192,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                             options={difficultyOptions}
                                             value={field.value.toString()}
                                             onChange={field.onChange}
-                                            disabled={disabled}
+                                            disabled={disabled || recipeImageMutation.isPending}
                                             isError={form.formState.errors.difficulty ? true : false}
                                         />
                                     </FormControl>
@@ -228,11 +261,30 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     <FormField
                         name="img"
                         control={form.control}
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem className="w-[350px] mt-6">
-                                <FormLabel>Imagen (opcional)</FormLabel>
+                                <FormLabel>
+                                    Imagen (opcional){' '}
+                                    {image && (
+                                        <Button
+                                            size="sm"
+                                            type="button"
+                                            className="ml-2 bg-rose-600 text-white hover:bg-rose-700"
+                                            onClick={handleDeleteImage}
+                                        >
+                                            Eliminar imagen
+                                        </Button>
+                                    )}
+                                </FormLabel>
+                                {image && <img className="w-[400px] h-[300px] mb-4" src={image}></img>}
                                 <FormControl>
-                                    <Input type="file" className="mb-2" disabled={disabled} {...field} />
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="mt-4 mb-4 cursor-pointer p-0 text-sm"
+                                        onChange={onRecipeImageChange}
+                                        disabled={disabled || recipeImageMutation.isPending}
+                                    />
                                 </FormControl>
                             </FormItem>
                         )}
@@ -241,9 +293,13 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                         <FormError message={form.formState.errors.img.message} />
                     ) : null}
 
-                    <Button variant="primary" className="mt-4 mx-auto" disabled={disabled}>
+                    <Button
+                        variant="primary"
+                        className="mt-8 mx-auto"
+                        disabled={disabled || recipeImageMutation.isPending}
+                    >
                         {id ? 'Guardar cambios' : 'Crear receta'}{' '}
-                        {disabled ? <Loader className="ml-2 animate-spin" /> : null}
+                        {disabled || recipeImageMutation.isPending ? <Loader className="ml-2 animate-spin" /> : null}
                     </Button>
                 </form>
             </Form>
