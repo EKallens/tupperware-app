@@ -35,7 +35,7 @@ export const DropdownUser = (): JSX.Element => {
                 </span>
 
                 <span className="h-12 w-12 rounded-full">
-                    <img src={user?.img ?? defaultUserImage} alt="User" />
+                    <img className="rounded-full" src={user?.img ?? defaultUserImage} alt="User" />
                 </span>
                 <IoIosArrowDown size={20} />
             </div>

@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { updateUserSchema } from '@/schemas/user.schema'
-import { updateUser } from '@/lib/userApi'
+import { updateImageUser, updateUser } from '@/lib/userApi'
 import { User } from '@/interfaces/users/users.interface'
 import { toast } from 'sonner'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
@@ -18,11 +18,22 @@ import { Loader } from 'lucide-react'
 export const SettingsPage = (): JSX.Element => {
     const { user, setUser } = useAuthStore()
 
-    const { mutate, isPending } = useMutation({
+    const userMutation = useMutation({
         mutationFn: (userInfo: Omit<User, 'isVerified'>) => updateUser(userInfo),
         onSuccess: (data) => {
             setUser({ ...user, id: data.id, name: data.name, email: data.email })
             toast.success('Usuario actualizado correctamente')
+        },
+        onError: () => {
+            toast.error('Error al actualizar el usuario')
+        }
+    })
+
+    const userImageMutation = useMutation({
+        mutationFn: (file: File) => updateImageUser(user!.id, file),
+        onSuccess: (data) => {
+            setUser(data)
+            toast.success('Imagen actualizada correctamente')
         },
         onError: () => {
             toast.error('Error al actualizar el usuario')
@@ -37,9 +48,19 @@ export const SettingsPage = (): JSX.Element => {
         }
     })
 
+    const imageForm = useForm({})
+
     const onSubmit = (data: Omit<User, 'isVerified' | 'id'>) => {
         if (user?.id) {
-            mutate({ ...data, id: user.id })
+            userMutation.mutate({ ...data, id: user.id })
+        }
+    }
+
+    //const onImageSubmit = (data: { file?: File }) => data.file && userImageMutation.mutate(data.file)
+
+    const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            userImageMutation.mutate(e.target.files[0])
         }
     }
 
@@ -70,7 +91,7 @@ export const SettingsPage = (): JSX.Element => {
                                                             <FormControl>
                                                                 <Input
                                                                     className="mb-2 dark:text-black-2"
-                                                                    disabled={isPending}
+                                                                    disabled={userMutation.isPending}
                                                                     {...field}
                                                                 />
                                                             </FormControl>
@@ -93,7 +114,7 @@ export const SettingsPage = (): JSX.Element => {
                                                             <FormControl>
                                                                 <Input
                                                                     className="mb-2 dark:text-black-2"
-                                                                    disabled={isPending}
+                                                                    disabled={userMutation.isPending}
                                                                     placeholder="p.ej. correo@correo.com"
                                                                     {...field}
                                                                 />
@@ -113,10 +134,13 @@ export const SettingsPage = (): JSX.Element => {
                                             <Button
                                                 type="submit"
                                                 variant="primary"
-                                                disabled={isPending}
+                                                disabled={userMutation.isPending}
                                                 className="flex justify-center rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90"
                                             >
-                                                Guardar {isPending ? <Loader className="ml-2 animate-spin" /> : null}
+                                                Guardar{' '}
+                                                {userMutation.isPending ? (
+                                                    <Loader className="ml-2 animate-spin" />
+                                                ) : null}
                                             </Button>
                                         </div>
                                     </form>
@@ -130,57 +154,54 @@ export const SettingsPage = (): JSX.Element => {
                                 <h3 className="font-medium text-black dark:text-white">Tu foto</h3>
                             </div>
                             <div className="p-7">
-                                <form
-                                    onSubmit={(e) => {
-                                        e.preventDefault()
-                                    }}
-                                >
-                                    <div className="mb-4 flex items-center gap-3">
-                                        <div className="h-14 w-14 rounded-full">
-                                            <img src={user?.img ?? defaultUserImage} alt="User" />
+                                <Form {...imageForm}>
+                                    <form>
+                                        <div className="mb-4 flex items-center gap-3">
+                                            <div className="h-14 w-14 rounded-full">
+                                                <img
+                                                    className="rounded-full"
+                                                    src={user?.img ?? defaultUserImage}
+                                                    alt="User"
+                                                />
+                                            </div>
+                                            <div>
+                                                <span className="mb-1.5 text-black dark:text-white">Edita tu foto</span>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <span className="mb-1.5 text-black dark:text-white">Edita tu foto</span>
-                                        </div>
-                                    </div>
 
-                                    <div
-                                        id="FileUpload"
-                                        className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5"
-                                    >
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                                        />
-                                        <div className="flex flex-col items-center justify-center space-y-3">
-                                            <span className="flex h-10 w-10 items-center justify-center rounded-full dark:border-strokeDark dark:bg-boxDark">
-                                                <FaCloudArrowUp size={24} />
-                                            </span>
-                                            <p>
-                                                <span className="text-primary">Arrastra tu foto o haz click aquí</span>
-                                            </p>
-                                            <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
-                                            <p>(max, 800 X 800px)</p>
+                                        <div
+                                            id="FileUpload"
+                                            className="relative mb-5.5 block w-full cursor-pointer appearance-none rounded border border-dashed border-primary bg-gray py-4 px-4 dark:bg-meta-4 sm:py-7.5"
+                                        >
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
+                                                onChange={onImageChange}
+                                                disabled={userImageMutation.isPending}
+                                            />
+                                            <div className="flex flex-col items-center justify-center space-y-3">
+                                                <span className="flex h-10 w-10 items-center justify-center rounded-full dark:border-strokeDark dark:bg-boxDark">
+                                                    <FaCloudArrowUp size={24} />
+                                                </span>
+                                                <div>
+                                                    {userImageMutation.isPending ? (
+                                                        <div className="flex flex-row items-center gap-1.5">
+                                                            <span className="text-primary">Subiendo imagen</span>
+                                                            <Loader className="w-6 h-6 animate-spin text-primary" />
+                                                        </div>
+                                                    ) : (
+                                                        <span className="text-primary">
+                                                            Arrastra tu foto o haz click aquí
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
+                                                <p>(max, 800 X 800px)</p>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div className="flex justify-end gap-4.5">
-                                        <Button
-                                            variant="ghost"
-                                            className="flex justify-center rounded border border-stroke py-1 px-4 font-medium text-black hover:shadow-1 dark:border-strokeDark dark:text-white"
-                                        >
-                                            Cancelar
-                                        </Button>
-                                        <Button
-                                            type="submit"
-                                            variant="primary"
-                                            className="flex justify-center rounded bg-primary py-1 px-4 font-medium text-gray hover:bg-opacity-90"
-                                        >
-                                            Guardar
-                                        </Button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </Form>
                             </div>
                         </div>
                     </div>
