@@ -24,8 +24,7 @@ export const TagActionColumn = ({ id }: ActionProps) => {
 
     const [ConfirmDialog, confirm] = useConfirm(
         '¿Estás seguro de que quieres eliminar esta etiqueta?',
-        'Esta acción no se puede deshacer.',
-        deleteMutation.isPending
+        'Esta acción no se puede deshacer.'
     )
 
     const onDelete = async () => {
