@@ -41,7 +41,6 @@ export const ForgotPasswordPage = () => {
             className="max-w-md w-full bg-black backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
         >
             <div className="p-8">
-                <Toaster />
                 <div className="flex items-center mb-6">
                     <Mail className="h-8 w-8 text-white mr-4" />
                     <h2 className="text-3xl font-bold text-center text-primary bg-clip-text">Restablecer Contraseña</h2>

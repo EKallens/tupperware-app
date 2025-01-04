@@ -26,10 +26,12 @@ export const ResetPasswordPage = () => {
     const { mutate, isPending } = useMutation({
         mutationFn: (password: string) => resetPassword(token!, password),
         onSuccess: () => {
-            toast.success('Contraseña cambiada')
+            toast.success(
+                'La contraseña se ha cambiado correctamente. Ahora serás redirigido a la página de inicio de sesión'
+            )
             setTimeout(() => {
                 navigate('/auth/login')
-            }, 3000)
+            }, 2000)
         }
     })
 

@@ -46,6 +46,7 @@ export const TagForm = ({ id, defaultValues, onSubmit, disabled }: Props): JSX.E
                                     className="mb-2"
                                     disabled={disabled}
                                     placeholder="p.ej. queso, tomate..."
+                                    autoFocus
                                     {...field}
                                 />
                             </FormControl>

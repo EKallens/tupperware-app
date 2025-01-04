@@ -11,8 +11,8 @@ import { useAuthStore } from '@/store/useAuthStore'
 import { Select } from '../select/Select'
 import { difficultyOptions } from '@/utils/constants'
 import { FormError } from '../form-error/FormError'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { getUserTags } from '@/lib/tagsApi'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { createTag, getUserTags } from '@/lib/tagsApi'
 import { MultiSelect } from '../select/MultiSelect'
 import { createTagOptions } from '@/utils/utils'
 import { useState } from 'react'
@@ -32,6 +32,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [image, setImage] = useState<string>(defaultValues?.img || '')
     const { user } = useAuthStore()
+    const queryClient = useQueryClient()
 
     const { data } = useQuery({
         queryKey: ['tags'],
@@ -40,6 +41,18 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
 
     const recipeImageMutation = useMutation({
         mutationFn: (file: File) => uploadRecipeImage(file),
+        onError: () => {
+            toast.error('Error al subir la imagen')
+        }
+    })
+
+    const tagMutation = useMutation({
+        mutationFn: (name: string) => createTag(name, user!.id),
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['tags'] })
+            queryClient.invalidateQueries({ queryKey: ['tag', data.id] })
+            toast.success('Tag creado correctamente')
+        },
         onError: () => {
             toast.error('Error al subir la imagen')
         }
@@ -70,6 +83,8 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
         recipe = { ...values, tags: tagIds, createdBy: user!.id, img: imageUrl }
         onSubmit(recipe)
     }
+
+    const onCreateTag = async (name: string) => tagMutation.mutate(name)
 
     return (
         <>
@@ -242,13 +257,17 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                         render={({ field }: any) => (
                             <>
                                 <FormItem className="w-auto mt-6">
-                                    <FormLabel>Tags</FormLabel>
+                                    <FormLabel>
+                                        Tags (Si no has agregado ningún tag, escribe el nombre del tag y presiona Enter
+                                        para crearlo)
+                                    </FormLabel>
                                     <MultiSelect
                                         defaultValues={field.value || []}
                                         onChange={(selectedTags) => field.onChange(selectedTags)}
                                         options={createTagOptions(data || [])}
                                         className="basic-multi-select text-sm"
                                         placeholder="Selecciona los tags..."
+                                        onCreate={onCreateTag}
                                     />
                                 </FormItem>
                             </>
