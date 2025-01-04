@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { forgotPasswordSchema } from '@/schemas/auth.schema'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 
 export const ForgotPasswordPage = () => {
     const form = useForm<{ email: string }>({
