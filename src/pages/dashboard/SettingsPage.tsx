@@ -155,13 +155,20 @@ export const SettingsPage = (): JSX.Element => {
                                 <Form {...imageForm}>
                                     <form>
                                         <div className="mb-4 flex items-center gap-3">
-                                            <div className="h-14 w-14 rounded-full">
+                                            <div className="w-14 h-14 rounded-full overflow-hidden">
+                                                <img
+                                                    className="w-full h-full object-cover"
+                                                    src={user?.img ?? defaultUserImage}
+                                                    alt="user-redonda"
+                                                />
+                                            </div>
+                                            {/* <div className="h-14 w-14 rounded-full">
                                                 <img
                                                     className="rounded-full"
                                                     src={user?.img ?? defaultUserImage}
                                                     alt="User"
                                                 />
-                                            </div>
+                                            </div> */}
                                             <div>
                                                 <span className="mb-1.5 text-black dark:text-white">Edita tu foto</span>
                                             </div>

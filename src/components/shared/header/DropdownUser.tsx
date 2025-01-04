@@ -34,9 +34,13 @@ export const DropdownUser = (): JSX.Element => {
                     <span className="block text-xs">{user?.email}</span>
                 </span>
 
-                <span className="h-12 w-12 rounded-full">
-                    <img className="rounded-full" src={user?.img ?? defaultUserImage} alt="User" />
-                </span>
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <img
+                        className="w-full h-full object-cover"
+                        src={user?.img ?? defaultUserImage}
+                        alt="imagen redonda"
+                    />
+                </div>
                 <IoIosArrowDown size={20} />
             </div>
 
