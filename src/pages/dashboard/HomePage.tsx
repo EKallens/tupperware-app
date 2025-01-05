@@ -18,17 +18,31 @@ export const HomePage = (): JSX.Element => {
         return (
             <div className="flex flex-col items-center justify-center gap-4">
                 <p>No tienes recetas creadas</p>
-                <Link to="/dashboard/recipes">
+                <Link to="/dashboard/recipes/new">
                     <Button variant="primary">Crear nueva receta</Button>
                 </Link>
             </div>
         )
     }
 
-    return (
+    return data ? (
+        <div className="m-4">
+            <div className="flex items-center justify-between mb-12">
+                <h1 className="text-title-md2 font-semibold text-black dark:text-white">Mis recetas</h1>
+                <Link to="/dashboard/recipes/new">
+                    <Button variant="primary">Crear nueva receta</Button>
+                </Link>
+            </div>
+            <div className="flex flex-wrap gap-10 items-center">
+                {data?.map((recipe) => (
+                    <Recipe key={recipe.id} recipe={recipe} />
+                ))}
+            </div>
+        </div>
+    ) : (
         <div className="m-4">
             <div className="flex flex-wrap gap-10 items-center justify-center">
-                {data ? data?.map((recipe) => <Recipe key={recipe.id} recipe={recipe} />) : <RecipeSkeleton />}
+                <RecipeSkeleton />
             </div>
         </div>
     )

@@ -162,13 +162,6 @@ export const SettingsPage = (): JSX.Element => {
                                                     alt="user-redonda"
                                                 />
                                             </div>
-                                            {/* <div className="h-14 w-14 rounded-full">
-                                                <img
-                                                    className="rounded-full"
-                                                    src={user?.img ?? defaultUserImage}
-                                                    alt="User"
-                                                />
-                                            </div> */}
                                             <div>
                                                 <span className="mb-1.5 text-black dark:text-white">Edita tu foto</span>
                                             </div>

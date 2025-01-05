@@ -76,7 +76,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
 
     const handleSubmit = async (values: IRecipeFormInputs) => {
         let recipe = {}
-        let imageUrl = ''
+        let imageUrl = undefined
 
         if (imageFile) imageUrl = await recipeImageMutation.mutateAsync(imageFile)
         const tagIds = form.getValues('tags').map((tag) => tag.id || tag.value)

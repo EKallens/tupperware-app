@@ -18,8 +18,7 @@ export const NewRecipePage = () => {
         preparation: '',
         difficulty: '',
         description: '',
-        createdBy: '',
-        img: ''
+        createdBy: ''
     }
 
     const recipeMutation = useMutation({
