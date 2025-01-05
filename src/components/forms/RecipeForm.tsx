@@ -30,7 +30,6 @@ type Props = {
 
 export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => {
     const [imageFile, setImageFile] = useState<File | null>(null)
-    const [image, setImage] = useState<string>(defaultValues?.img || '')
     const { user } = useAuthStore()
     const queryClient = useQueryClient()
 
@@ -66,12 +65,6 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
     const onRecipeImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files![0]
         setImageFile(file)
-    }
-
-    const handleDeleteImage = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e?.preventDefault()
-        setImage('')
-        defaultValues!.img = ''
     }
 
     const handleSubmit = async (values: IRecipeFormInputs) => {
@@ -282,20 +275,10 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                         control={form.control}
                         render={() => (
                             <FormItem className="w-[350px] mt-6">
-                                <FormLabel>
-                                    Imagen (opcional){' '}
-                                    {image && (
-                                        <Button
-                                            size="sm"
-                                            type="button"
-                                            className="ml-2 bg-rose-600 text-white hover:bg-rose-700"
-                                            onClick={handleDeleteImage}
-                                        >
-                                            Eliminar imagen
-                                        </Button>
-                                    )}
-                                </FormLabel>
-                                {image && <img className="w-[400px] h-[300px] mb-4" src={image}></img>}
+                                <FormLabel>Imagen (opcional) </FormLabel>
+                                {defaultValues?.img && (
+                                    <img className="w-[400px] h-[300px] mb-4" src={defaultValues?.img}></img>
+                                )}
                                 <FormControl>
                                     <input
                                         type="file"

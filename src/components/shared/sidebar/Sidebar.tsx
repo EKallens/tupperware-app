@@ -47,7 +47,10 @@ export const Sidebar = () => {
             <div className="flex items-center justify-center py-6">
                 <NavLink className="flex flex-row items-center justify-center" to="">
                     <img className="hidden lg:flex" src={Logo} alt="Logo" width={80} height={83} />
-                    <span className="font-bold uppercase ml-2">{appName}</span>
+                    <div className="flex flex-col justify-center items-center">
+                        <span className="font-bold uppercase ml-2">{appName}</span>
+                        <span className="text-white text-sm font-semibold">By EKallens 👽</span>
+                    </div>
                 </NavLink>
 
                 <button
@@ -97,14 +100,6 @@ export const Sidebar = () => {
                     </>
                 </nav>
             </div>
-            <footer className="flex flex-row justify-center items-end mt-auto mb-2 font-bold">
-                <span className="text-primary text-sm">
-                    Made by{' '}
-                    <a className="text-gray-400" href="https://github.com/EKallens" target="_blank">
-                        EKallens 🚀
-                    </a>
-                </span>
-            </footer>
         </aside>
     )
 }

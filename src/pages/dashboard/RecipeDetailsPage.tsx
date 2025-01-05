@@ -1,7 +1,8 @@
 import { BiSolidDish } from 'react-icons/bi'
 import { MdOutlineSoupKitchen } from 'react-icons/md'
 import defaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
-import { IoTimerOutline, IoArrowBackOutline, IoMedical } from 'react-icons/io5'
+import { IoTimerOutline, IoArrowBackOutline } from 'react-icons/io5'
+import { PiChefHat } from 'react-icons/pi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { getDifficultyLabel } from '@/utils/utils'
@@ -63,19 +64,19 @@ export const RecipeDetailsPage = (): JSX.Element => {
                 <hr className="my-6 h-0.5 bg-neutral-100 dark:bg-white/10" />
 
                 <div className="flex-row mt-4 xl:mt-3 xl:flex xl:gap-8">
-                    <div className="order-3 flex-1 py-4 lg:order-1">
-                        <p className="text-lg font-bold text-black dark:text-white mb-4">Preparación</p>
-                        <ul className="lg:text-justify">
-                            <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.preparation }}></li>
-                        </ul>
-                    </div>
-                    <div className="order-2 px-0 flex-1 py-4 lg:px-6 lg:order-2">
+                    <div className="order-1 xl:order-1 flex-1 px-0 py-4">
                         <h2 className="text-lg font-bold text-black dark:text-white mb-4">Ingredientes</h2>
                         <ul className="lg:text-justify">
                             <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.ingredients }}></li>
                         </ul>
                     </div>
-                    <div className="order-1 px-0 w-auto flex-1 py-4 lg:order-3">
+                    <div className="order-2 xl:order-2 flex-1 px-0 py-4">
+                        <p className="text-lg font-bold text-black dark:text-white mb-4">Preparación</p>
+                        <ul className="lg:text-justify">
+                            <li className="ql-editor" dangerouslySetInnerHTML={{ __html: data.preparation }}></li>
+                        </ul>
+                    </div>
+                    <div className="order-3 xl:order-3 flex-1 px-0 py-4 w-auto">
                         <img
                             className="w-full rounded-md shadow-md"
                             src={data.img ? data.img : defaultRecipeImage}
@@ -84,14 +85,16 @@ export const RecipeDetailsPage = (): JSX.Element => {
                         <div className="divide-y flex-col flex items-center justify-center mt-6 lg:flex-row lg:p-4 lg:divide-x lg:divide-blue-800 text-sm lg:text-blue-800 lg:border lg:border-blue-300 rounded-lg lg:bg-blue-50 lg:divide-y-0 dark:bg-gray-800 dark:text-white dark:border-white dark:divide-white">
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
                                 <MdOutlineSoupKitchen size={22} className="text-blue-800 dark:text-gray-100" />
-                                <p className="ml-1">{data.servings} Porciones</p>
+                                <span className="ml-1">{data.servings}</span>
+                                <span className="ml-1">porciones</span>
                             </span>
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
                                 <IoTimerOutline size={22} className="text-blue-800 dark:text-gray-100" />
-                                <p className="ml-1">{data.cookTime} minutos</p>
+                                <span className="ml-1">{data.cookTime}</span>
+                                <span className="ml-1">minutos</span>
                             </span>
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
-                                <IoMedical size={22} className="text-blue-800 dark:text-gray-100" />
+                                <PiChefHat size={22} className="text-blue-800 dark:text-gray-100" />
                                 <p className="ml-1">{getDifficultyLabel(data.difficulty)}</p>
                             </span>
                         </div>

@@ -1,6 +1,6 @@
 # 🍲 Tupperware
 
-**Tupperware** es una aplicación web diseñada para gestionar recetas de cocina de forma sencilla y accesible. Los usuarios pueden crear, visualizar y marcar como favoritas sus recetas. La aplicación cuenta con una interfaz de usuario amigable desarrollada en React y un backend en Node.js con ExpressJs que utiliza MongoDB para la persistencia de datos.
+**Tupperware** es una aplicación web diseñada para gestionar recetas de cocina de forma sencilla y accesible. Los usuarios pueden crear, visualizar y marcar como favoritas sus recetas. La aplicación cuenta con una interfaz de usuario amigable desarrollada en `React` y un backend en `Node.js` con `ExpressJs` que utiliza `MongoDB` para la persistencia de datos.
 
 ## 🚀 Características
 
@@ -94,8 +94,7 @@ REACT_APP_API_URL=http://localhost:5000
 
 ## 🎨 Capturas de Pantalla
 
-![Captura de pantalla 2025-01-01 a la(s) 10 20 16 p m](https://github.com/user-attachments/assets/51cc7fd6-d803-4650-b3cb-722282a8bfdb)
-
+Work in progress
 
 ## 🤝 Contribuciones
 

@@ -33,7 +33,7 @@ export const HomePage = (): JSX.Element => {
                     <Button variant="primary">Crear nueva receta</Button>
                 </Link>
             </div>
-            <div className="flex flex-wrap gap-10 items-center">
+            <div className="flex flex-wrap gap-6 items-center">
                 {data?.map((recipe) => (
                     <Recipe key={recipe.id} recipe={recipe} />
                 ))}
@@ -41,7 +41,7 @@ export const HomePage = (): JSX.Element => {
         </div>
     ) : (
         <div className="m-4">
-            <div className="flex flex-wrap gap-10 items-center justify-center">
+            <div className="flex flex-wrap gap-6 items-center">
                 <RecipeSkeleton />
             </div>
         </div>

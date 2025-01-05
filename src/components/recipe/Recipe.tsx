@@ -51,7 +51,7 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-md w-full overflow-hidden"
+            className="overflow-hidden"
             key={recipe.id}
         >
             <Card className="bg-white shadow-sm w-[300px] dark:bg-primaryDark dark:border-none">
