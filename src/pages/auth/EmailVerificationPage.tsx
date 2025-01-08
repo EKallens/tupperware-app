@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Loader } from 'lucide-react'
@@ -55,21 +55,24 @@ export const EmailVerificationPage = () => {
         }
     }
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault()
-        const verificationCode = code.join('')
-        try {
-            mutate(verificationCode)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const handleSubmit = useCallback(
+        async (e: any) => {
+            e.preventDefault()
+            const verificationCode = code.join('')
+            try {
+                mutate(verificationCode)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        [code, mutate]
+    )
 
     useEffect(() => {
         if (code.every((digit) => digit !== '')) {
             handleSubmit(new Event('submit'))
         }
-    }, [code])
+    }, [code, handleSubmit])
 
     return (
         <div className="bg-black max-w-md w-full backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden">

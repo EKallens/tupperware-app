@@ -45,7 +45,7 @@ export const Sidebar = () => {
             }`}
         >
             <div className="flex items-center justify-center py-6">
-                <NavLink className="flex flex-row items-center justify-center" to="">
+                <NavLink onClick={() => setOpen(!isOpen)} className="flex flex-row items-center justify-center" to="">
                     <img className="hidden lg:flex" src={Logo} alt="Logo" width={80} height={83} />
                     <div className="flex flex-col justify-center items-center">
                         <span className="font-bold uppercase ml-2">{appName}</span>
