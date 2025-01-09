@@ -17,7 +17,7 @@ export const NewRecipePage = () => {
         cookTime: '',
         preparation: '',
         difficulty: '',
-        description: '',
+        description: undefined,
         createdBy: ''
     }
 
