@@ -35,7 +35,8 @@ const columns: ColumnDef<IRecipe>[] = [
     },
     {
         accessorKey: 'title',
-        header: () => <div className="font-bold">Título</div>
+        header: () => <div className="font-bold">Título</div>,
+        cell: ({ row }) => <Link to={`/dashboard/recipes/edit/${row.original.id}`}>{row.getValue('title')}</Link>
     },
     {
         accessorKey: 'difficulty',
