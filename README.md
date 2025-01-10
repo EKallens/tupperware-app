@@ -1,3 +1,8 @@
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/recipes-app-client-woad?style=flat-square)
+![Node.js](https://img.shields.io/badge/node-22-brightgreen?logo=node.js&style=flat-square)
+![React](https://img.shields.io/badge/react-18-blue?logo=react&style=flat-square)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-v3.4-green?logo=tailwindcss&style=flat-square)
+
 # 🍲 Tupperware
 
 **Tupperware** is a web application designed to easily and efficiently manage cooking recipes. Users can create, view, and mark their recipes as favorites. The application features a user-friendly interface built with `React` and a backend in `Node.js` using `ExpressJs` and `MongoDB` for data persistence.
