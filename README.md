@@ -1,29 +1,29 @@
 # 🍲 Tupperware
 
-**Tupperware** es una aplicación web diseñada para gestionar recetas de cocina de forma sencilla y accesible. Los usuarios pueden crear, visualizar y marcar como favoritas sus recetas. La aplicación cuenta con una interfaz de usuario amigable desarrollada en `React` y un backend en `Node.js` con `ExpressJs` que utiliza `MongoDB` para la persistencia de datos.
+**Tupperware** is a web application designed to easily and efficiently manage cooking recipes. Users can create, view, and mark their recipes as favorites. The application features a user-friendly interface built with `React` and a backend in `Node.js` using `ExpressJs` and `MongoDB` for data persistence.
 
-## 🚀 Características
+## 🚀 Features
 
--   **Gestión de Recetas**: Crear, editar, eliminar y visualizar recetas.
--   **Favoritos**: Los usuarios pueden marcar sus recetas favoritas para acceder a ellas rápidamente.
--   **Etiquetas (Tags)**: Clasifica las recetas por etiquetas personalizadas.
--   **Autenticación**: Sistema seguro de registro e inicio de sesión.
--   **Fotos de Recetas**: Opción de agregar una foto para cada receta.
+-   **Recipe Management**: Create, edit, delete, and view recipes.
+-   **Favorites**: Users can mark their favorite recipes for quick access.
+-   **Tags**: Classify recipes with custom tags.
+-   **Authentication**: Secure system for user registration and login.
+-   **Recipe Photos**: Option to add a photo for each recipe.
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
--   **React** con **Vite**: Interfaz de usuario rápida y moderna.
--   **TypeScript**: Tipado estático para facilitar el mantenimiento y escalabilidad.
--   **CSS con TailwindCSS**: Diseño rápido y personalizado para una buena experiencia de usuario.
--   **Shadcn**: Librería de componentes
--   **Zustand**: Para la gestión del estado global
--   **Zod**: Validación de inputs
+-   **React** with **Vite**: Fast and modern user interface.
+-   **TypeScript**: Static typing to facilitate maintenance and scalability.
+-   **CSS with TailwindCSS**: Quick and customizable design for a great user experience.
+-   **Shadcn**: Component library.
+-   **Zustand**: For global state management.
+-   **Zod**: Input validation.
 
-### Despliegue
+### Deployment
 
--   WIP
+-   Work in Progress (WIP)
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```plaintext
 recipes-app-client/
@@ -51,51 +51,51 @@ recipes-app-client/
 └── README.md
 ```
 
-## 🚀 Instalación y Configuración
+## 🚀 Installation and Setup
 
-### Requisitos Previos
+### Prerequisites
 
--   **Node.js** (v18 o superior)
+-   **Node.js** (v18 or higher)
 
-### Variables de Entorno
+### Environment Variables
 
-Crea un archivo `.env` en la raíz del proyecto para almacenar tus variables de entorno:
+Create a `.env` file at the root of the project to store your environment variables:
 
 ```plaintext
 REACT_APP_API_URL=http://localhost:5000
 ```
 
-### Instalación
+### Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
     ```bash
     $ git clone https://github.com/EKallens/recipes-app-client.git
     $ cd recipes-app-client
     ```
 
-2. Instala las dependencias:
+2. Install dependencies:
 
     ```bash
     $ npm install
     ```
 
-### Ejecución en Desarrollo
+### Running in Development Mode
 
-1. Inicia el servidor frontend:
+1. Start the frontend server:
 
     ```bash
     $ npm run dev
     ```
 
-2. Accede a la aplicación en el navegador:
+2. Access the application in your browser:
 
     - [http://localhost:5173](http://localhost:5173)
 
-## 🎨 Capturas de Pantalla
+## 🎨 Screenshots
 
-Work in progress
+Work in Progress
 
-## 🤝 Contribuciones
+## 🤝 Contributions
 
-¡Las contribuciones son bienvenidas! Si deseas mejorar esta aplicación, siéntete libre de abrir un `pull request` o de reportar problemas en el apartado de `issues`.
+Contributions are welcome! If you wish to improve this application, feel free to open a `pull request` or report issues in the `issues` section.
