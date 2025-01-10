@@ -81,11 +81,13 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <img
-                        className="w-[250px] h-[150px] rounded-sm"
-                        src={recipe.img || defaultRecipeImage}
-                        alt="recipe"
-                    />
+                    <a href={recipe.img || defaultRecipeImage} target="_blank">
+                        <img
+                            className="w-[250px] h-[150px] rounded-sm object-cover"
+                            src={recipe.img || defaultRecipeImage}
+                            alt="recipe"
+                        />
+                    </a>
                     <div className="flex flex-col gap-4 mt-4">
                         <div className="flex flex-wrap items-center">
                             <span className="text-sm">Dificultad:</span>
