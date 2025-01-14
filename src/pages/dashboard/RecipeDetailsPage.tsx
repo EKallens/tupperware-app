@@ -1,7 +1,7 @@
 import { BiSolidDish } from 'react-icons/bi'
 import { MdOutlineSoupKitchen } from 'react-icons/md'
 import defaultRecipeImage from '@/assets/images/recipes/default-recipe.jpg'
-import { IoTimerOutline, IoArrowBackOutline } from 'react-icons/io5'
+import { IoArrowBackOutline } from 'react-icons/io5'
 import { PiChefHat } from 'react-icons/pi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
@@ -13,6 +13,7 @@ import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import 'quill/dist/quill.snow.css'
 import { Edit } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { FaHeart } from 'react-icons/fa'
 
 export const RecipeDetailsPage = (): JSX.Element => {
     const { id } = useParams()
@@ -51,9 +52,9 @@ export const RecipeDetailsPage = (): JSX.Element => {
                         </Link>
                     </div>
                     <span className="mt-3 shadow-sm text-sm font-bold border p-2 rounded-md bg-gray-200 lg:mt-0 dark:text-black">
-                        Fecha de creación:{' '}
+                        Última Actualización:{' '}
                         <span className="text-sm font-normal">
-                            {dateAdapter.format(new Date(data.createdAt), 'dd-MM-yyyy')}
+                            {dateAdapter.format(new Date(data.updatedAt || data.createdAt), 'dd-MM-yyyy')}
                         </span>
                     </span>
                 </div>
@@ -89,16 +90,22 @@ export const RecipeDetailsPage = (): JSX.Element => {
                                 <span className="ml-1">porciones</span>
                             </span>
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
-                                <IoTimerOutline size={22} className="text-blue-800 dark:text-gray-100" />
-                                <span className="ml-1">{data.cookTime}</span>
-                                <span className="ml-1">minutos</span>
+                                <FaHeart size={22} className="text-blue-800 dark:text-gray-100" />
+                                <span className="ml-1">{data.isFavorite ? 'Es favorita' : 'No es favorita'}</span>
                             </span>
                             <span className="py-4 flex flex-row items-center lg:py-0 lg:px-4">
                                 <PiChefHat size={22} className="text-blue-800 dark:text-gray-100" />
                                 <p className="ml-1">{getDifficultyLabel(data.difficulty)}</p>
                             </span>
                         </div>
-                        <p className="mt-6">Notas: {data.notes}</p>
+                        <div className="flex flex-col">
+                            <span className="mt-6">
+                                <span className="font-bold">Tiempo de cocción: </span> {data.cookTime} minutos
+                            </span>
+                            <span className="mt-2">
+                                <span className="font-bold">Notas:</span> {data.notes}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -171,7 +171,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                             control={form.control}
                             render={({ field }) => (
                                 <FormItem className="w-full md:w-70">
-                                    <FormLabel>Tiempo (En minutos)</FormLabel>
+                                    <FormLabel>Tiempo de cocción (En minutos)</FormLabel>
                                     <FormControl>
                                         <Input
                                             type="number"
