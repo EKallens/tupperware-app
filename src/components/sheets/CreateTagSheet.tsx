@@ -17,6 +17,9 @@ export const CreateTagSheet = () => {
             toast.success('Etiqueta creada correctamente')
             onClose()
             queryClient.invalidateQueries({ queryKey: ['tags'] })
+        },
+        onError: (error) => {
+            toast.error(error.message)
         }
     })
 
