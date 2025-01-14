@@ -36,7 +36,7 @@ export const RegisterPage = (): JSX.Element => {
             reset()
         },
         onError: () => {
-            toast.error('Credenciales incorrectas!', {
+            toast.error('Error al registrar el usuario', {
                 duration: 5000,
                 position: 'top-center'
             })

@@ -20,7 +20,8 @@ import { NewRecipePage } from '@/pages/dashboard/NewRecipePage'
 import { EditRecipePage } from '@/pages/dashboard/EditRecipePage'
 
 const ProtectedRoute = ({ children }: any) => {
-    const { isAuthenticated, isCheckingAuth, checkAuth } = useAuthStore()
+    const { isAuthenticated, isCheckingAuth, checkAuth, user } = useAuthStore()
+    console.log(isAuthenticated)
 
     useEffect(() => {
         checkAuth()
@@ -29,7 +30,7 @@ const ProtectedRoute = ({ children }: any) => {
     if (isCheckingAuth) {
         return <LoadingSpinner />
     }
-    if (!isAuthenticated) {
+    if (!isAuthenticated || !user?.isVerified) {
         return <Navigate to="/auth/login" replace />
     }
     return children
