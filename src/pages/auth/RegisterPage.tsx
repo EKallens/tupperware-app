@@ -1,18 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import Logo from '@/assets/images/logo/recipe-logo-oficial.svg'
 import { motion } from 'framer-motion'
-import { FaUnlock } from 'react-icons/fa'
-import { IoMdMail } from 'react-icons/io'
-import { FaUser } from 'react-icons/fa'
 import { Loader } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useMutation } from '@tanstack/react-query'
 import { register as registerUser } from '../../lib/authApi'
 import { toast } from 'sonner'
+import { useState } from 'react'
+import { FiEye, FiEyeOff } from 'react-icons/fi'
 
 interface RegisterFormInputs {
     email: string
@@ -23,6 +22,11 @@ interface RegisterFormInputs {
 export const RegisterPage = (): JSX.Element => {
     const { register, reset, handleSubmit } = useForm<RegisterFormInputs>()
     const setUser = useAuthStore((state) => state.setUser)
+    const [showPassword, setShowPassword] = useState(false)
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevState) => !prevState)
+    }
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: registerUser,
@@ -62,43 +66,53 @@ export const RegisterPage = (): JSX.Element => {
                         <CardTitle>
                             <img src={Logo} alt="Logo" width={160} height={160} />
                         </CardTitle>
-                        <CardDescription className="text-sm text-muted-foreground">
-                            Ingresa tu nombre, correo y contraseña para crear una cuenta nueva
-                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             <div className="space-y-2">
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-600">
+                                    Nombre
+                                </label>
                                 <Input
-                                    startIcon={FaUser}
                                     id="name"
                                     type="text"
-                                    placeholder="nombre"
+                                    className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                                     {...register('name', { required: true })}
                                 />
                             </div>
                             <div className="space-y-2">
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-600">
+                                    Correo
+                                </label>
                                 <Input
-                                    startIcon={IoMdMail}
                                     id="email"
                                     type="email"
-                                    placeholder="email@example.com"
+                                    className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                                     {...register('email', { required: true })}
                                 />
                             </div>
-                            <div className="space-y-2">
+                            <div className="relative space-y-2 mb-6">
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-600">
+                                    Contraseña
+                                </label>
                                 <Input
-                                    startIcon={FaUnlock}
                                     id="password"
-                                    type="password"
-                                    placeholder="*********"
+                                    type={showPassword ? 'text' : 'password'}
+                                    className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                                     {...register('password', { required: true })}
                                 />
+                                <button
+                                    type="button"
+                                    onClick={togglePasswordVisibility}
+                                    className="absolute top-6 inset-y-0 right-3 flex items-center"
+                                >
+                                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                                </button>
                             </div>
 
                             {isError && <p className="text-sm text-rose-600">{error.message}</p>}
 
-                            <Button variant="primary" type="submit" className="w-full" disabled={isPending}>
+                            <Button variant="primary" type="submit" className="w-full mt-10" disabled={isPending}>
                                 Registrarse {isPending ? <Loader className="w-6 h-6 animate-spin" /> : null}
                             </Button>
                         </div>
