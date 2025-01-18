@@ -21,7 +21,6 @@ import { EditRecipePage } from '@/pages/dashboard/EditRecipePage'
 
 const ProtectedRoute = ({ children }: any) => {
     const { isAuthenticated, isCheckingAuth, checkAuth, user } = useAuthStore()
-    console.log(isAuthenticated)
 
     useEffect(() => {
         checkAuth()
