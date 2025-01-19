@@ -12,14 +12,14 @@ import { TagsPage } from '@/pages/dashboard/TagsPage'
 import { Root } from '@/Root'
 import { EmailVerificationPage } from '@/pages/auth/EmailVerificationPage'
 import { useAuthStore } from '@/store/useAuthStore'
-import { useEffect } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import LoadingSpinner from '@/components/loading-spinner/LoadingSpinner'
 import { ForgotPasswordPage } from '@/pages/auth/ForgotPasswordPage'
 import { ResetPasswordPage } from '@/pages/auth/ResetPasswordPage'
 import { NewRecipePage } from '@/pages/dashboard/NewRecipePage'
 import { EditRecipePage } from '@/pages/dashboard/EditRecipePage'
 
-const ProtectedRoute = ({ children }: any) => {
+const ProtectedRoute = ({ children }: PropsWithChildren) => {
     const { isAuthenticated, isCheckingAuth, checkAuth, user } = useAuthStore()
 
     useEffect(() => {

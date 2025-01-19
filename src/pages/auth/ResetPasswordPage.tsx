@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { useMutation } from '@tanstack/react-query'
 import { resetPassword } from '@/lib/authApi'
 import { toast } from 'sonner'
+import { Link } from 'react-router-dom'
 
 export const ResetPasswordPage = () => {
     const { token } = useParams()
@@ -32,6 +33,11 @@ export const ResetPasswordPage = () => {
             setTimeout(() => {
                 navigate('/auth/login')
             }, 2000)
+        },
+        onError: (error) => {
+            toast.error(error.message, {
+                position: 'top-center'
+            })
         }
     })
 
@@ -44,10 +50,9 @@ export const ResetPasswordPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-md w-full bg-black backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+            className="max-w-md w-full backdrop-filter backdrop-blur-xl bg-white rounded-2xl shadow-xl overflow-hidden"
         >
             <div className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-center text-primary bg-clip-text">Reset Password</h2>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(handleSubmit)}>
                         <FormField
@@ -55,7 +60,7 @@ export const ResetPasswordPage = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <FormItem className="mb-4">
-                                    <FormLabel className="text-white">Nueva contraseña</FormLabel>
+                                    <FormLabel className="text-black">Nueva contraseña</FormLabel>
                                     <FormControl>
                                         <Input className="mb-2" disabled={isPending} type="password" {...field} />
                                     </FormControl>
@@ -72,7 +77,7 @@ export const ResetPasswordPage = () => {
                             control={form.control}
                             render={({ field }) => (
                                 <FormItem className="mb-4">
-                                    <FormLabel className="text-white">Repite la contraseña</FormLabel>
+                                    <FormLabel className="text-black">Repite la contraseña</FormLabel>
                                     <FormControl>
                                         <Input className="mb-2" disabled={isPending} type="password" {...field} />
                                     </FormControl>
@@ -91,6 +96,11 @@ export const ResetPasswordPage = () => {
                         </Button>
                     </form>
                 </Form>
+                <div className="flex justify-center">
+                    <Link className="mt-4" to="/auth/login">
+                        <span className="cursor-pointer">Volver al Inicio</span>
+                    </Link>
+                </div>
             </div>
         </motion.div>
     )

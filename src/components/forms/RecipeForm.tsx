@@ -24,7 +24,7 @@ export type RecipeFormInputs = Omit<IRecipe, 'id' | 'createdAt' | 'updatedAt'>
 type Props = {
     id?: string
     defaultValues?: IRecipeFormInputs
-    onSubmit: (values: any) => void
+    onSubmit: (values: IRecipeFormInputs) => void
     disabled?: boolean
 }
 
@@ -68,7 +68,21 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
     }
 
     const handleSubmit = async (values: IRecipeFormInputs) => {
-        let recipe = {}
+        let recipe: IRecipeFormInputs = {
+            title: '',
+            notes: '',
+            servings: '',
+            tags: [],
+            ingredients: '',
+            cookTime: '',
+            preparation: '',
+            difficulty: '',
+            createdBy: '',
+            isFavorite: '',
+            description: '',
+            img: ''
+        }
+
         let imageUrl = undefined
 
         if (imageFile) imageUrl = await recipeImageMutation.mutateAsync(imageFile)
@@ -136,6 +150,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                                         disabled={disabled || recipeImageMutation.isPending}
                                         placeholder="Descripción de la receta..."
                                         {...field}
+                                        value={field.value || ''}
                                     />
                                 </FormControl>
                             </FormItem>
@@ -247,7 +262,7 @@ export const RecipeForm = ({ id, defaultValues, onSubmit, disabled }: Props) => 
                     <Controller
                         name="tags"
                         control={form.control}
-                        render={({ field }: any) => (
+                        render={({ field }) => (
                             <>
                                 <FormItem className="w-auto mt-6">
                                     <FormLabel>

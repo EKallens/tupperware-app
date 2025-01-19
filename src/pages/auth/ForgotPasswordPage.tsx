@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowLeft, Loader, Mail } from 'lucide-react'
+import { Loader } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -38,18 +38,17 @@ export const ForgotPasswordPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-md w-full bg-black backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+            className="max-w-md w-full backdrop-filter backdrop-blur-xl rounded-2xl overflow-hidden"
         >
             <div className="p-8">
-                <div className="flex items-center mb-6">
-                    <Mail className="h-8 w-8 text-white mr-4" />
+                <div className="flex justify-center mb-6">
                     <h2 className="text-3xl font-bold text-center text-primary bg-clip-text">Restablecer Contraseña</h2>
                 </div>
 
                 <Form {...form}>
                     {!isSuccess ? (
                         <form onSubmit={form.handleSubmit(handleSubmit)}>
-                            <p className="text-gray-300 mb-6 text-center text-sm">
+                            <p className="text-gray-500 mb-6 text-center">
                                 Ingresa tu correo y te enviaremos un link para restablecer tu contraseña
                             </p>
                             <FormField
@@ -72,13 +71,13 @@ export const ForgotPasswordPage = () => {
                                 <span className="mb-2 text-sm text-rose-600">Debes ingresar un correo válido</span>
                             ) : null}
 
-                            <Button variant="primary" className="w-full mt-4">
+                            <Button variant="primary" className="w-full mt-4" disabled={isPending}>
                                 Enviar correo {isPending ? <Loader className="ml-2 animate-spin" /> : null}
                             </Button>
                         </form>
                     ) : (
                         <div className="text-center">
-                            <p className="text-gray-300 mb-6">
+                            <p className="text-gray-500">
                                 Se envió un correo a {form.getValues().email}. Sigue las instrucciones para restablecer
                                 tu contraseña.
                             </p>
@@ -87,9 +86,9 @@ export const ForgotPasswordPage = () => {
                 </Form>
             </div>
 
-            <div className="px-8 py-4 bg-gray-900 flex justify-center">
-                <Link to={'/login'} className="text-sm text-white hover:underline flex items-center">
-                    <ArrowLeft className="h-4 w-4 mr-2" /> Volver
+            <div className={`flex justify-center ${isPending ? 'opacity-10' : ''}`}>
+                <Link className="bg-black rounded-xl pl-3 pr-3 pb-1" to={isPending ? '#' : '/auth/login'}>
+                    <span className="cursor-pointer text-white text-sm font-semi-bold">Volver</span>
                 </Link>
             </div>
         </motion.div>
