@@ -54,7 +54,7 @@ export const Recipe = ({ recipe }: RecipeProps): JSX.Element => {
             className="overflow-hidden"
             key={recipe.id}
         >
-            <Card className="bg-white shadow-sm max-w-[290px] max-h-[450px] dark:bg-primaryDark dark:border-none">
+            <Card className="bg-white shadow-sm max-w-[290px] min-h-[450px] max-h-[450px] dark:bg-primaryDark dark:border-none">
                 <CardHeader>
                     <div className="flex flex-row justify-between mb-4">
                         <CardTitle className="break-all pr-4">{recipe.title}</CardTitle>
